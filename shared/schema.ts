@@ -16,13 +16,7 @@ export const users = pgTable("users", {
   companyRole: text("company_role"), // founder, manager, freelancer, etc.
   industry: text("industry"),
   companySize: text("company_size"), // 1-10, 11-50, 51-200, 200+
-  // Subscription information (moved from organizations)
-  subscriptionPlan: text("subscription_plan").default("solo"), // solo, pro
-  subscriptionStatus: text("subscription_status").default("active"), // active, canceled, past_due
-  maxProjects: integer("max_projects").default(3),
-  stripeCustomerId: text("stripe_customer_id"),
-  stripeSubscriptionId: text("stripe_subscription_id"),
-  trialStartDate: timestamp("trial_start_date"),
+  // Billing information removed - now handled at organization level
   createdAt: timestamp("created_at").defaultNow(),
   lastLoginAt: timestamp("last_login_at"),
   isActive: boolean("is_active").default(true),
@@ -149,6 +143,13 @@ export const clients = pgTable("clients", {
   avatar: text("avatar"),
   notes: text("notes"),
   createdBy: integer("created_by").notNull(), // User who created this client
+  organizationId: integer("organization_id").notNull(), // Organization this client belongs to
+  // Client portal access control
+  portalAccess: boolean("portal_access").default(false), // Whether client has portal access
+  allowedProjects: jsonb("allowed_projects").$type<number[]>().default([]), // Specific project IDs client can access
+  portalPermissions: jsonb("portal_permissions").$type<string[]>().default([]), // Client portal permissions
+  lastPortalAccess: timestamp("last_portal_access"), // Track last portal login
+  portalNotifications: boolean("portal_notifications").default(true), // Email notifications enabled
   joinedAt: timestamp("joined_at").defaultNow(),
 });
 
@@ -158,7 +159,7 @@ export const projects = pgTable("projects", {
   description: text("description"),
   clientId: integer("client_id").notNull(),
   ownerId: integer("owner_id").notNull(), // User who owns this project
-  organizationId: integer("organization_id"), // Organization this project belongs to
+  organizationId: integer("organization_id").notNull(), // Organization this project belongs to
   status: text("status").notNull().default("active"), // active, completed, paused, cancelled
   progress: integer("progress").default(0),
   budget: decimal("budget", { precision: 10, scale: 2 }).notNull(),
@@ -185,6 +186,24 @@ export const projectTeamMembers = pgTable("project_team_members", {
   assignedBy: integer("assigned_by").notNull(),
   assignedAt: timestamp("assigned_at").defaultNow(),
   isActive: boolean("is_active").default(true),
+  // Team member access control
+  accessLevel: text("access_level").default("standard"), // standard, restricted, full
+  allowedTasks: jsonb("allowed_tasks").$type<number[]>().default([]), // Specific task IDs if restricted
+  canViewAllTasks: boolean("can_view_all_tasks").default(true), // Whether can see all project tasks
+  canEditProject: boolean("can_edit_project").default(false), // Can edit project details
+  canInviteMembers: boolean("can_invite_members").default(false), // Can invite other team members
+  lastProjectAccess: timestamp("last_project_access"), // Track last project access
+  notificationPreferences: jsonb("notification_preferences").$type<{
+    taskAssigned?: boolean;
+    projectUpdates?: boolean;
+    comments?: boolean;
+    milestones?: boolean;
+  }>().default({
+    taskAssigned: true,
+    projectUpdates: true,
+    comments: true,
+    milestones: true
+  }),
 });
 
 export const milestones = pgTable("milestones", {
@@ -313,6 +332,142 @@ export const notifications = pgTable("notifications", {
   actionUrl: text("action_url"), // URL to navigate when clicked
   createdAt: timestamp("created_at").defaultNow(),
   readAt: timestamp("read_at"),
+});
+
+// Organization data export jobs
+export const organizationExportJobs = pgTable("organization_export_jobs", {
+  id: serial("id").primaryKey(),
+  organizationId: integer("organization_id").notNull(),
+  requestedBy: integer("requested_by").notNull(), // User who requested the export
+  status: text("status").notNull().default("scheduled"), // scheduled, processing, completed, failed
+  exportOptions: jsonb("export_options").$type<{
+    includeProjects?: boolean;
+    includeClients?: boolean;
+    includeTeamMembers?: boolean;
+    includeDocuments?: boolean;
+    includeComments?: boolean;
+    includeTasks?: boolean;
+    includeActivities?: boolean;
+    format?: 'json' | 'csv' | 'archive';
+    dateRange?: {
+      from?: string;
+      to?: string;
+    };
+  }>().default({}),
+  filename: text("filename"),
+  downloadPath: text("download_path"),
+  fileSize: integer("file_size"), // Size in bytes
+  errorMessage: text("error_message"),
+  processingStartedAt: timestamp("processing_started_at"),
+  completedAt: timestamp("completed_at"),
+  expiresAt: timestamp("expires_at"), // When the download link expires
+  downloadCount: integer("download_count").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Organization data recovery jobs
+export const organizationRecoveryJobs = pgTable("organization_recovery_jobs", {
+  id: serial("id").primaryKey(),
+  organizationId: integer("organization_id").notNull(),
+  requestedBy: integer("requested_by").notNull(), // User who requested the recovery
+  status: text("status").notNull().default("processing"), // processing, completed, failed, cancelled
+  recoveryMode: text("recovery_mode").notNull(), // full, partial, merge
+  importFilePath: text("import_file_path"),
+  importDataPreview: jsonb("import_data_preview").$type<{
+    stats?: {
+      projects?: number;
+      clients?: number;
+      members?: number;
+      tasks?: number;
+    };
+    exportedAt?: string;
+    organizationName?: string;
+  }>().default({}),
+  recoveryResults: jsonb("recovery_results").$type<{
+    projectsRestored?: number;
+    clientsRestored?: number;
+    membersRestored?: number;
+    tasksRestored?: number;
+    errors?: string[];
+    warnings?: string[];
+  }>().default({}),
+  errorMessage: text("error_message"),
+  processingStartedAt: timestamp("processing_started_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Organization usage tracking
+export const organizationUsageTracking = pgTable("organization_usage_tracking", {
+  id: serial("id").primaryKey(),
+  organizationId: integer("organization_id").notNull(),
+  trackingPeriod: text("tracking_period").notNull(), // daily, weekly, monthly
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  // Usage metrics
+  projectsCount: integer("projects_count").default(0),
+  activeProjectsCount: integer("active_projects_count").default(0),
+  clientsCount: integer("clients_count").default(0),
+  teamMembersCount: integer("team_members_count").default(0),
+  activeTeamMembersCount: integer("active_team_members_count").default(0), // Logged in last 30 days
+  tasksCount: integer("tasks_count").default(0),
+  completedTasksCount: integer("completed_tasks_count").default(0),
+  commentsCount: integer("comments_count").default(0),
+  documentsCount: integer("documents_count").default(0),
+  // Storage usage in bytes
+  totalStorageUsed: integer("total_storage_used").default(0),
+  documentsStorage: integer("documents_storage").default(0),
+  avatarsStorage: integer("avatars_storage").default(0),
+  // Activity metrics
+  loginCount: integer("login_count").default(0),
+  apiRequestsCount: integer("api_requests_count").default(0),
+  // Plan limits status
+  projectsLimitExceeded: boolean("projects_limit_exceeded").default(false),
+  teamMembersLimitExceeded: boolean("team_members_limit_exceeded").default(false),
+  storageLimitExceeded: boolean("storage_limit_exceeded").default(false),
+  // Billing-related
+  plan: text("plan").notNull(), // Current plan during this period
+  planChangedDuring: boolean("plan_changed_during").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Plan limit violations and warnings
+export const planLimitViolations = pgTable("plan_limit_violations", {
+  id: serial("id").primaryKey(),
+  organizationId: integer("organization_id").notNull(),
+  violationType: text("violation_type").notNull(), // projects, team_members, storage, api_requests
+  currentUsage: integer("current_usage").notNull(),
+  planLimit: integer("plan_limit").notNull(), // -1 for unlimited
+  violationLevel: text("violation_level").notNull(), // warning, soft_limit, hard_limit
+  notificationSent: boolean("notification_sent").default(false),
+  actionTaken: text("action_taken"), // none, warning_sent, feature_restricted, upgrade_suggested
+  resolvedAt: timestamp("resolved_at"),
+  metadata: jsonb("metadata").$type<{
+    specificItems?: number[]; // IDs of items that caused violation
+    previousUsage?: number;
+    timeToLimit?: number; // Estimated time until limit reached
+    recommendedAction?: string;
+  }>().default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Usage alerts and notifications
+export const usageAlerts = pgTable("usage_alerts", {
+  id: serial("id").primaryKey(),
+  organizationId: integer("organization_id").notNull(),
+  alertType: text("alert_type").notNull(), // approaching_limit, limit_exceeded, unusual_usage
+  resourceType: text("resource_type").notNull(), // projects, team_members, storage
+  threshold: integer("threshold").notNull(), // Percentage or absolute value
+  currentValue: integer("current_value").notNull(),
+  limitValue: integer("limit_value").notNull(),
+  severity: text("severity").notNull(), // info, warning, critical
+  message: text("message").notNull(),
+  actionRequired: boolean("action_required").default(false),
+  sentToUsers: jsonb("sent_to_users").$type<number[]>().default([]), // User IDs notified
+  acknowledgedBy: jsonb("acknowledged_by").$type<number[]>().default([]), // User IDs who acknowledged
+  resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 // Support tickets

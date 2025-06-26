@@ -158,3 +158,1080 @@ Transformed clients with dates: [
 5:27:05 PM [express] GET /api/users 200 in 121ms :: [{"id":31,"supabase_id":null,"username":null,"em…
 5:27:05 PM [express] GET /api/projects 304 in 193ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
 5:27:05 PM [express] GET /api/projects/1/team-members 304 in 80ms :: []
+6:00:55 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+6:01:34 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+6:05:09 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+6:09:29 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 596ms :: {"user":{"id":8…
+6:09:30 PM [express] GET /api/notifications 304 in 1ms :: []
+6:09:30 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+6:09:30 PM [express] GET /api/activities 304 in 1ms :: []
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:09:30 PM [express] GET /api/team/invitations 304 in 1ms :: []
+6:09:30 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 13 active team members for organization 1
+6:09:30 PM [express] GET /api/team/members 304 in 187ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+6:09:30 PM [express] GET /api/clients 304 in 193ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+6:09:30 PM [express] GET /api/stats 304 in 200ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+6:09:30 PM [express] GET /api/projects 304 in 223ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+✅ Found 13 active team members for organization 1
+6:09:30 PM [express] GET /api/team/members 304 in 87ms :: [{"id":8,"supabase_id":null,"username":nul…
+6:09:30 PM [express] GET /api/projects/1/team-members 304 in 153ms :: []
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:09:35 PM [express] GET /api/team/invitations 304 in 2ms :: []
+✅ Found 13 active team members for organization 1
+6:09:35 PM [express] GET /api/team/members 304 in 177ms :: [{"id":8,"supabase_id":null,"username":nu…
+6:09:35 PM [express] GET /api/projects 304 in 315ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+6:09:36 PM [express] GET /api/onboarding-forms 304 in 72ms :: [{"id":18,"owner_id":8,"project_id":nu…
+6:09:36 PM [express] GET /api/projects 304 in 155ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+6:09:36 PM [express] GET /api/billing/1 304 in 1ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:09:36 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 13 active team members for organization 1
+6:09:36 PM [express] GET /api/team/members 304 in 64ms :: [{"id":8,"supabase_id":null,"username":nul…
+6:58:37 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 579ms :: {"user":{"id":8…
+6:58:41 PM [express] GET /api/notifications 200 in 0ms :: []
+6:58:41 PM [express] GET /api/notifications/unread-count 200 in 1ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:58:41 PM [express] GET /api/team/invitations 304 in 0ms :: []
+6:58:41 PM [express] GET /api/activities 304 in 0ms :: []
+6:58:41 PM [express] GET /api/team/invitations 304 in 1ms :: []
+6:58:41 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 99ms :: {"user":{"id":8,…
+6:58:41 PM [express] GET /api/notifications 304 in 11ms :: []
+6:58:41 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+6:58:42 PM [express] GET /api/projects 304 in 198ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+6:58:42 PM [express] GET /api/clients 304 in 196ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+✅ Found 13 active team members for organization 1
+6:58:42 PM [express] GET /api/team/members 304 in 201ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:58:42 PM [express] GET /api/stats 304 in 200ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 13 active team members for organization 1
+6:58:42 PM [express] GET /api/team/members 304 in 87ms :: [{"id":8,"supabase_id":null,"username":nul…
+6:58:42 PM [express] GET /api/projects 304 in 137ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+6:58:42 PM [express] GET /api/projects/1/team-members 304 in 68ms :: []
+6:58:43 PM [express] GET /api/billing/1 304 in 2ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:58:43 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 13 active team members for organization 1
+6:58:43 PM [express] GET /api/team/members 304 in 145ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+6:58:45 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 13 active team members for organization 1
+6:58:45 PM [express] GET /api/team/members 304 in 78ms :: [{"id":8,"supabase_id":null,"username":nul…
+🗑️ Removing user 9 from organization 1
+✅ Successfully marked user 9 as inactive
+6:58:53 PM [express] DELETE /api/team/members/9 204 in 193ms
+6:59:41 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+7:04:55 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 581ms :: {"user":{"id":8…
+7:04:56 PM [express] GET /api/notifications 304 in 1ms :: []
+7:04:56 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:04:56 PM [express] GET /api/team/invitations 304 in 1ms :: []
+7:04:56 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:04:56 PM [express] GET /api/activities 304 in 1ms :: []
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:04:56 PM [express] GET /api/clients 304 in 139ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+7:04:56 PM [express] GET /api/stats 304 in 137ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:04:56 PM [express] GET /api/team/members 200 in 145ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+✅ Found 12 active team members for organization 1
+7:04:56 PM [express] GET /api/team/members 304 in 67ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:04:56 PM [express] GET /api/projects 304 in 299ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:04:56 PM [express] GET /api/projects/1/team-members 304 in 71ms :: []
+7:05:06 PM [express] GET /api/billing/1 304 in 1ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:05:06 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 12 active team members for organization 1
+7:05:06 PM [express] GET /api/team/members 304 in 102ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:05:24 PM [express] GET /api/onboarding-forms 304 in 106ms :: [{"id":18,"owner_id":8,"project_id":n…
+7:05:24 PM [express] GET /api/projects 304 in 178ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:05:26 PM [express] GET /api/projects 304 in 150ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:06:06 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+7:23:50 PM [express] GET /api/notifications 304 in 0ms :: []
+7:23:50 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:23:50 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:23:50 PM [express] GET /api/activities 304 in 0ms :: []
+7:23:51 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:23:51 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 1059ms :: {"user":{"id":…
+7:23:51 PM [express] GET /api/notifications 304 in 3ms :: []
+7:23:51 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:23:51 PM [express] GET /api/clients 304 in 224ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+7:23:51 PM [express] GET /api/stats 304 in 241ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:23:51 PM [express] GET /api/team/members 304 in 244ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:23:51 PM [express] GET /api/projects 304 in 294ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+✅ Found 12 active team members for organization 1
+7:23:51 PM [express] GET /api/team/members 304 in 151ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:23:51 PM [express] GET /api/projects 304 in 235ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:23:51 PM [express] GET /api/projects/1/team-members 304 in 76ms :: []
+7:23:59 PM [express] GET /api/billing/1 304 in 1ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:23:59 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:23:59 PM [express] GET /api/team/members 304 in 169ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:24:02 PM [express] GET /api/onboarding-forms 304 in 149ms :: [{"id":18,"owner_id":8,"project_id":n…
+7:24:02 PM [express] GET /api/projects 304 in 175ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:24:04 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:24:04 PM [express] GET /api/team/members 304 in 70ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:24:12 PM [express] GET /api/notifications 304 in 1ms :: []
+7:24:12 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:24:12 PM [express] GET /api/activities 304 in 0ms :: []
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:24:12 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:24:12 PM [express] GET /api/team/invitations 304 in 0ms :: []
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:24:12 PM [express] GET /api/clients 304 in 112ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+7:24:12 PM [express] GET /api/stats 304 in 195ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:24:12 PM [express] GET /api/team/members 304 in 191ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:24:12 PM [express] GET /api/projects 304 in 186ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+✅ Found 12 active team members for organization 1
+7:24:12 PM [express] GET /api/team/members 304 in 146ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:24:13 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 12 active team members for organization 1
+7:24:13 PM [express] GET /api/team/members 304 in 91ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:24:13 PM [express] GET /api/projects 304 in 149ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:24:14 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 12 active team members for organization 1
+7:24:14 PM [express] GET /api/team/members 304 in 85ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:24:15 PM [express] GET /api/assets 200 in 1ms :: []
+7:24:15 PM [express] GET /api/assets/folders/1 200 in 1ms :: []
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:24:16 PM [express] GET /api/messages/conversations 304 in 1ms :: []
+7:24:16 PM [express] GET /api/messages/client-conversations 304 in 1ms :: []
+7:24:16 PM [express] GET /api/messages/team-conversations 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:24:16 PM [express] GET /api/team/members 304 in 83ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:26:21 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+7:27:26 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+7:31:26 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 609ms :: {"user":{"id":8…
+7:31:26 PM [express] GET /api/notifications 304 in 0ms :: []
+7:31:26 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:31:26 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:31:26 PM [express] GET /api/team/invitations 304 in 1ms :: []
+7:31:26 PM [express] GET /api/activities 304 in 0ms :: []
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:31:26 PM [express] GET /api/clients 304 in 128ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+7:31:26 PM [express] GET /api/stats 304 in 136ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:31:26 PM [express] GET /api/team/members 304 in 147ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:31:26 PM [express] GET /api/projects 304 in 165ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+✅ Found 12 active team members for organization 1
+7:31:26 PM [express] GET /api/team/members 304 in 77ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:31:26 PM [express] GET /api/projects/1/team-members 304 in 65ms :: []
+7:31:28 PM [express] GET /api/billing/1 304 in 1ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:31:28 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:31:28 PM [express] GET /api/team/members 304 in 76ms :: [{"id":8,"supabase_id":null,"username":nul…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:31:30 PM [express] GET /api/messages/conversations 304 in 1ms :: []
+7:31:30 PM [express] GET /api/messages/client-conversations 304 in 2ms :: []
+7:31:30 PM [express] GET /api/messages/team-conversations 304 in 0ms :: []
+✅ Found 12 active team members for organization 1
+7:31:30 PM [express] GET /api/team/members 304 in 73ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:31:33 PM [express] GET /api/support/tickets/1 200 in 1ms :: []
+7:31:35 PM [express] GET /api/notifications 304 in 1ms :: []
+7:31:35 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:31:35 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:31:35 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:31:35 PM [express] GET /api/activities 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:31:36 PM [express] GET /api/team/members 304 in 131ms :: [{"id":8,"supabase_id":null,"username":nu…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:31:36 PM [express] GET /api/clients 304 in 127ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+7:31:36 PM [express] GET /api/projects 304 in 201ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:31:36 PM [express] GET /api/stats 304 in 201ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:31:36 PM [express] GET /api/team/members 304 in 75ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:32:06 PM [express] GET /api/notifications 304 in 1ms :: []
+7:32:06 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:32:34 PM [vite] hmr update /src/pages/projects.tsx, /src/index.css?v=j51CIgpoogZDyON7lzUgw, /src/pages/billing-fixed.tsx, /src/components/create-project-modal.tsx, /src/pages/team.tsx, /src/components/sidebar-plan-info.tsx, /src/components/project-assignment-matrix.tsx
+7:32:36 PM [express] GET /api/notifications 304 in 0ms :: []
+7:32:36 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:33:06 PM [express] GET /api/notifications 304 in 3ms :: []
+7:33:06 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:33:37 PM [express] GET /api/notifications 304 in 4ms :: []
+7:33:37 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:34:06 PM [express] GET /api/notifications 304 in 2ms :: []
+7:34:06 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:34:36 PM [express] GET /api/notifications 304 in 2ms :: []
+7:34:36 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:35:06 PM [express] GET /api/notifications 304 in 2ms :: []
+7:35:06 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:36:07 PM [express] GET /api/notifications 304 in 2ms :: []
+7:36:07 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:37:08 PM [express] GET /api/notifications 304 in 5ms :: []
+7:37:08 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:38:09 PM [express] GET /api/notifications 304 in 2ms :: []
+7:38:09 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:39:09 PM [express] GET /api/notifications 304 in 1ms :: []
+7:39:09 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:40:10 PM [express] GET /api/notifications 304 in 6ms :: []
+7:40:10 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:41:11 PM [express] GET /api/notifications 304 in 2ms :: []
+7:41:11 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:42:12 PM [express] GET /api/notifications 304 in 1ms :: []
+7:42:12 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:43:13 PM [express] GET /api/notifications 304 in 2ms :: []
+7:43:13 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:44:05 PM [express] GET /api/notifications 304 in 1ms :: []
+7:44:05 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:44:05 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:44:05 PM [express] GET /api/activities 304 in 0ms :: []
+7:44:05 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 12 active team members for organization 1
+7:44:05 PM [express] GET /api/team/members 304 in 471ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:44:05 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 594ms :: {"user":{"id":8…
+✅ Found 12 active team members for organization 1
+7:44:05 PM [express] GET /api/team/members 304 in 107ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:44:05 PM [express] GET /api/notifications 304 in 1ms :: []
+7:44:05 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+7:44:06 PM [express] GET /api/stats 304 in 745ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:44:06 PM [express] GET /api/clients 304 in 918ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+7:44:06 PM [express] GET /api/projects 304 in 1001ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","des…
+7:44:06 PM [express] GET /api/projects 304 in 175ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:44:06 PM [express] GET /api/projects/1/team-members 304 in 85ms :: []
+7:44:10 PM [express] GET /api/billing/1 304 in 1ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:44:10 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Found 12 active team members for organization 1
+7:44:10 PM [express] GET /api/team/members 304 in 75ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:44:14 PM [express] GET /api/notifications 304 in 1ms :: []
+7:44:14 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:45:15 PM [express] GET /api/notifications 304 in 4ms :: []
+7:45:15 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:46:16 PM [express] GET /api/notifications 304 in 2ms :: []
+7:46:16 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:47:17 PM [express] GET /api/notifications 304 in 2ms :: []
+7:47:17 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:48:18 PM [express] GET /api/notifications 304 in 2ms :: []
+7:48:18 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:49:19 PM [express] GET /api/notifications 304 in 2ms :: []
+7:49:19 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:50:20 PM [express] GET /api/notifications 304 in 2ms :: []
+7:50:20 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:51:21 PM [express] GET /api/notifications 304 in 2ms :: []
+7:51:21 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:52:22 PM [express] GET /api/notifications 304 in 2ms :: []
+7:52:22 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:53:23 PM [express] GET /api/notifications 304 in 2ms :: []
+7:53:23 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:54:24 PM [express] GET /api/notifications 304 in 2ms :: []
+7:54:24 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:55:25 PM [express] GET /api/notifications 304 in 2ms :: []
+7:55:25 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:56:26 PM [express] GET /api/notifications 304 in 2ms :: []
+7:56:26 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+7:57:27 PM [express] GET /api/notifications 304 in 1ms :: []
+7:57:27 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:58:16 PM [express] GET /api/notifications 304 in 12ms :: []
+7:58:16 PM [express] GET /api/notifications/unread-count 304 in 10ms :: {"count":0}
+7:59:02 PM [express] GET /api/notifications 200 in 1ms :: []
+7:59:02 PM [express] GET /api/notifications/unread-count 200 in 0ms :: {"count":0}
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:59:02 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:59:02 PM [express] GET /api/activities 304 in 0ms :: []
+7:59:02 PM [express] GET /api/team/invitations 304 in 0ms :: []
+7:59:02 PM [express] GET /api/notifications 304 in 1ms :: []
+7:59:02 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+7:59:02 PM [express] GET /api/supabase/users/naveen%40funnelgrowthexpert.com 404 in 363ms :: {"error…
+✅ Found 12 active team members for organization 1
+7:59:03 PM [express] GET /api/team/members 304 in 453ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:59:03 PM [express] GET /api/stats 304 in 448ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:59:03 PM [express] GET /api/clients 304 in 475ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+7:59:03 PM [express] GET /api/projects 304 in 519ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+✅ Found 12 active team members for organization 1
+7:59:03 PM [express] GET /api/team/members 304 in 82ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:59:03 PM [express] GET /api/projects 304 in 149ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:59:03 PM [express] GET /api/projects/1/team-members 304 in 72ms :: []
+7:59:04 PM [express] GET /api/notifications 304 in 1ms :: []
+7:59:04 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+7:59:04 PM [express] GET /api/team/invitations 304 in 1ms :: []
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:59:04 PM [express] GET /api/team/invitations 304 in 1ms :: []
+7:59:04 PM [express] GET /api/activities 304 in 1ms :: []
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8
+  }
+]
+7:59:04 PM [express] GET /api/clients 304 in 72ms :: [{"id":21,"name":"test ","email":"testclinet@gm…
+Transformed clients with dates: [
+  {
+    id: 21,
+    name: 'test ',
+    joinedAt: '2025-06-26T08:42:51.02+00:00',
+    joined_at: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    joinedAt: '2025-06-26T04:39:14.611+00:00',
+    joined_at: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    joinedAt: '2025-06-25T11:38:37.413+00:00',
+    joined_at: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+✅ Found 12 active team members for organization 1
+7:59:04 PM [express] GET /api/team/members 304 in 145ms :: [{"id":8,"supabase_id":null,"username":nu…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:59:04 PM [express] GET /api/stats 304 in 150ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+✅ Found 12 active team members for organization 1
+7:59:04 PM [express] GET /api/team/members 304 in 73ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:59:04 PM [express] GET /api/projects 304 in 230ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:59:19 PM [express] GET /api/team/invitations 304 in 3ms :: []
+✅ Found 13 active team members for organization 1
+7:59:19 PM [express] GET /api/team/members 200 in 126ms :: [{"id":8,"supabase_id":null,"username":nu…
+7:59:20 PM [express] GET /api/projects 304 in 190ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:59:21 PM [express] GET /api/onboarding-forms 304 in 83ms :: [{"id":18,"owner_id":8,"project_id":nu…
+7:59:21 PM [express] GET /api/projects 304 in 148ms :: [{"id":1,"title":"MINIMAL PROJECT TEST","desc…
+7:59:22 PM [express] GET /api/billing/1 304 in 0ms :: {"id":1,"name":"Default Organization","plan":"…
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+7:59:22 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Found 13 active team members for organization 1
+7:59:22 PM [express] GET /api/team/members 304 in 70ms :: [{"id":8,"supabase_id":null,"username":nul…
+7:59:24 PM [express] GET /api/assets 304 in 1ms :: []
+7:59:24 PM [express] GET /api/assets/folders/1 304 in 0ms :: []
+7:59:28 PM [express] GET /api/support/tickets/1 304 in 4ms :: []

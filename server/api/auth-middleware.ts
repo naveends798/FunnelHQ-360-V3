@@ -49,18 +49,47 @@ export const authenticateUser = async (req: AuthenticatedRequest, res: Response,
       return res.status(401).json({ error: 'Invalid session token' });
     }
 
-    // Get user metadata from Clerk
-    const user = await clerkClient.users.getUser(session.userId);
-    const publicMetadata = user.publicMetadata as any;
+    // Get user organization membership from Supabase
+    const { data: membership, error: membershipError } = await supabase
+      .from('organization_memberships')
+      .select(`
+        organization_id,
+        role,
+        permissions,
+        is_active,
+        organizations!inner (
+          id,
+          name,
+          plan
+        )
+      `)
+      .eq('clerk_user_id', session.userId)
+      .eq('is_active', true)
+      .single();
+
+    if (membershipError && membershipError.code !== 'PGRST116') {
+      console.error('Error fetching organization membership:', membershipError);
+      return res.status(500).json({ error: 'Failed to verify organization membership' });
+    }
+
+    if (!membership) {
+      console.log('❌ Auth middleware - User has no active organization membership');
+      return res.status(403).json({ 
+        error: 'No active organization membership found',
+        hint: 'User must be a member of an organization to access this resource'
+      });
+    }
 
     req.userId = session.userId;
-    req.userRole = publicMetadata?.role || 'client';
-    req.organizationId = publicMetadata?.organizationId;
+    req.userRole = membership.role;
+    req.organizationId = membership.organization_id.toString();
 
     console.log('👤 Auth middleware - User authenticated:', { 
       userId: session.userId, 
       role: req.userRole,
-      orgId: req.organizationId 
+      orgId: req.organizationId,
+      orgName: membership.organizations.name,
+      orgPlan: membership.organizations.plan
     });
 
     next();
@@ -106,72 +135,105 @@ export const requireAdmin = requireRole(['admin']);
 // Middleware to check if user is admin or team member
 export const requireTeamAccess = requireRole(['admin', 'team_member']);
 
-// Middleware to get user profile from Supabase
-export const getUserProfile = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  try {
-    if (!req.userId) {
-      return res.status(401).json({ error: 'User not authenticated' });
+// Middleware to validate organization membership and permissions
+export const requireOrganizationAccess = (requiredPermissions?: string[]) => {
+  return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    try {
+      if (!req.userId || !req.organizationId) {
+        return res.status(401).json({ error: 'User not authenticated or missing organization context' });
+      }
+
+      // Get current membership to verify permissions
+      const { data: membership, error } = await supabase
+        .from('organization_memberships')
+        .select('role, permissions, is_active')
+        .eq('clerk_user_id', req.userId)
+        .eq('organization_id', req.organizationId)
+        .eq('is_active', true)
+        .single();
+
+      if (error || !membership) {
+        return res.status(403).json({ 
+          error: 'Invalid organization membership',
+          hint: 'User is not an active member of the requested organization'
+        });
+      }
+
+      // Check specific permissions if required
+      if (requiredPermissions && requiredPermissions.length > 0) {
+        const userPermissions = membership.permissions || [];
+        const hasRequiredPermissions = requiredPermissions.every(perm => 
+          userPermissions.includes(perm) || membership.role === 'admin'
+        );
+
+        if (!hasRequiredPermissions) {
+          return res.status(403).json({
+            error: 'Insufficient permissions',
+            required: requiredPermissions,
+            current: userPermissions
+          });
+        }
+      }
+
+      next();
+    } catch (error) {
+      console.error('Error in organization access middleware:', error);
+      return res.status(500).json({ error: 'Internal server error' });
     }
-
-    // Get user profile from Supabase
-    const { data: profile, error } = await supabase
-      .from('user_profiles')
-      .select('*')
-      .eq('id', req.userId)
-      .single();
-
-    if (error && error.code !== 'PGRST116') { // PGRST116 is "not found"
-      console.error('Error fetching user profile:', error);
-      return res.status(500).json({ error: 'Failed to fetch user profile' });
-    }
-
-    // If profile exists, update role information
-    if (profile) {
-      req.userRole = profile.role || req.userRole;
-      req.organizationId = profile.organization_id || req.organizationId;
-    }
-
-    next();
-  } catch (error) {
-    console.error('Error in getUserProfile middleware:', error);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
+  };
 };
 
-// Helper function to check project access
-export const checkProjectAccess = async (userId: string, projectId: string, userRole: string): Promise<boolean> => {
+// Helper function to check project access with organization validation
+export const checkProjectAccess = async (userId: string, projectId: string, userRole: string, organizationId: string): Promise<boolean> => {
   try {
-    // Admins have access to all projects
+    // First verify the project belongs to the user's organization
+    const { data: project, error: projectError } = await supabase
+      .from('projects')
+      .select('organization_id, client_id, owner_id')
+      .eq('id', projectId)
+      .single();
+
+    if (projectError || !project) {
+      console.log('Project not found or error:', projectError);
+      return false;
+    }
+
+    // Ensure project belongs to user's organization
+    if (project.organization_id.toString() !== organizationId) {
+      console.log('Project does not belong to user organization');
+      return false;
+    }
+
+    // Admins have access to all projects within their organization
     if (userRole === 'admin') {
       return true;
     }
 
-    // Check if user is assigned to the project
+    // Check if user is the project owner
+    if (project.owner_id.toString() === userId) {
+      return true;
+    }
+
+    // Check if user is assigned to the project as team member
     const { data: teamMember } = await supabase
       .from('project_team_members')
       .select('*')
       .eq('project_id', projectId)
       .eq('user_id', userId)
+      .eq('is_active', true)
       .single();
 
     if (teamMember) {
       return true;
     }
 
-    // Check if user is the project client
-    const { data: project } = await supabase
-      .from('projects')
-      .select('client_id')
-      .eq('id', projectId)
-      .single();
-
-    if (project && userRole === 'client') {
-      // For clients, check if they are associated with the project
+    // For clients, check if they are the project client
+    if (userRole === 'client') {
       const { data: client } = await supabase
         .from('clients')
         .select('id')
         .eq('id', project.client_id)
-        .eq('user_id', userId)
+        .eq('organization_id', organizationId)
         .single();
 
       return !!client;
@@ -194,11 +256,11 @@ export const requireProjectAccess = (projectIdParam: string = 'projectId') => {
         return res.status(400).json({ error: 'Project ID is required' });
       }
 
-      if (!req.userId || !req.userRole) {
-        return res.status(401).json({ error: 'User not authenticated' });
+      if (!req.userId || !req.userRole || !req.organizationId) {
+        return res.status(401).json({ error: 'User not authenticated or missing organization context' });
       }
 
-      const hasAccess = await checkProjectAccess(req.userId, projectId, req.userRole);
+      const hasAccess = await checkProjectAccess(req.userId, projectId, req.userRole, req.organizationId);
       
       if (!hasAccess) {
         return res.status(403).json({ error: 'Access denied to this project' });
@@ -210,6 +272,35 @@ export const requireProjectAccess = (projectIdParam: string = 'projectId') => {
       return res.status(500).json({ error: 'Internal server error' });
     }
   };
+};
+
+// Helper function to get organization data for current user
+export const getOrganizationData = async (req: AuthenticatedRequest) => {
+  if (!req.userId || !req.organizationId) {
+    throw new Error('User not authenticated or missing organization context');
+  }
+
+  const { data: orgData, error } = await supabase
+    .from('organizations')
+    .select(`
+      id,
+      name,
+      plan,
+      max_members,
+      max_projects,
+      max_storage,
+      storage_used,
+      trial_ends_at,
+      subscription_status
+    `)
+    .eq('id', req.organizationId)
+    .single();
+
+  if (error) {
+    throw new Error('Failed to fetch organization data');
+  }
+
+  return orgData;
 };
 
 export { AuthenticatedRequest };

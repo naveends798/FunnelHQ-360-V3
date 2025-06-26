@@ -12,7 +12,15 @@ import { createOrUpdateUser, getUserByEmail, updateUser, deleteUser, hardDeleteU
 import { createOrUpdateOrganization, createOrganizationMembership, createOrganizationInvitation, getOrganizationByClerkId, updateInvitationStatus } from "./api/supabase-organizations";
 import { sendClientProjectAssignmentEmail, sendTeamProjectAssignmentEmail, sendTestEmail } from "./api/email-service";
 import invitationRoutes from "./api/invitations";
-import { authenticateUser, requireAdmin, requireTeamAccess } from "./api/auth-middleware";
+import clientPortalRoutes from "./api/client-portal-routes";
+import clientManagementRoutes from "./api/client-management";
+import teamManagementRoutes from "./api/team-management-routes";
+import teamMemberPortalRoutes from "./api/team-member-portal-routes";
+import organizationExportRoutes from "./api/organization-export";
+import organizationRecoveryRoutes from "./api/organization-recovery";
+import usageMonitoringRoutes from "./api/usage-monitoring";
+import planEnforcementRoutes, { enforcePlanLimits } from "./api/plan-enforcement";
+import { authenticateUser, requireAdmin, requireTeamAccess, requireOrganizationAccess } from "./api/auth-middleware";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -166,6 +174,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Use the new invitation routes
   app.use("/api/invitations", invitationRoutes);
+  
+  // Client portal routes for restricted client access
+  app.use("/api/client-portal", clientPortalRoutes);
+  
+  // Client management routes for admins
+  app.use("/api/admin", clientManagementRoutes);
+  
+  // Team management routes for project assignments
+  app.use("/api/admin", teamManagementRoutes);
+  
+  // Team member portal routes for restricted team member access
+  app.use("/api/team-portal", teamMemberPortalRoutes);
+  
+  // Organization data export and recovery routes
+  app.use("/api/organization", organizationExportRoutes);
+  app.use("/api/organization", organizationRecoveryRoutes);
+  
+  // Usage monitoring and plan enforcement routes
+  app.use("/api/usage", usageMonitoringRoutes);
+  app.use("/api/plans", planEnforcementRoutes);
 
   // Enhanced Invitation System endpoints
   app.post("/api/invitations/validate", async (req, res) => {
@@ -452,49 +480,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     next();
   };
 
-  // Projects endpoints
-  app.get("/api/projects", validateUserId, async (req, res) => {
+  // Projects endpoints - Organization-scoped with role-based access control
+  app.get("/api/projects", authenticateUser, requireOrganizationAccess(), async (req: any, res) => {
     try {
-      const userId = req.query.userId ? parseInt(req.query.userId as string) : null;
-      const organizationId = req.query.organizationId ? parseInt(req.query.organizationId as string) : 1;
+      const userId = parseInt(req.userId);
+      const organizationId = parseInt(req.organizationId);
       
-      if (userId) {
-        // Check if user is admin (user ID 1 for testing)
-        if (userId === 1) {
-          // Admin users see all projects
-          const projects = await storage.getProjects();
-          const projectsWithClients = await Promise.all(
-            projects.map(async (project) => {
-              const client = project.client_id ? await storage.getClient(project.client_id) : null;
-              return { ...project, client };
-            })
-          );
-          res.json(projectsWithClients);
-        } else {
-          // Return projects filtered by user access
-          const projects = await storage.getProjectsForUser(userId, organizationId);
-          res.json(projects);
-        }
-      } else {
-        // Return all projects (fallback admin view)
-        const projects = await storage.getProjects();
+      if (req.userRole === 'admin') {
+        // Admin users see all projects in their organization
+        const projects = await storage.getProjects(organizationId);
         const projectsWithClients = await Promise.all(
           projects.map(async (project) => {
-            const client = project.client_id ? await storage.getClient(project.client_id) : null;
+            const client = project.client_id ? await storage.getClient(project.client_id, organizationId) : null;
             return { ...project, client };
           })
         );
         res.json(projectsWithClients);
+      } else {
+        // Return projects filtered by user access within organization
+        const projects = await storage.getProjectsForUser(userId, organizationId);
+        res.json(projects);
       }
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch projects" });
     }
   });
 
-  app.get("/api/projects/:id", async (req, res) => {
+  app.get("/api/projects/:id", authenticateUser, requireOrganizationAccess(), requireProjectAccess(), async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
-      const project = await storage.getProjectWithClient(id);
+      const organizationId = parseInt(req.organizationId);
+      
+      const project = await storage.getProjectWithClient(id, organizationId);
       if (!project) {
         return res.status(404).json({ error: "Project not found" });
       }
@@ -504,7 +521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/projects", async (req, res) => {
+  app.post("/api/projects", authenticateUser, requireOrganizationAccess(['create_projects']), enforcePlanLimits('projects'), async (req: any, res) => {
     try {
       // Convert date strings to Date objects if present
       if (req.body.endDate && typeof req.body.endDate === 'string') {
@@ -514,7 +531,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         req.body.startDate = new Date(req.body.startDate);
       }
       
-      const projectData = insertProjectSchema.parse(req.body);
+      const projectData = insertProjectSchema.parse({
+        ...req.body,
+        ownerId: parseInt(req.userId),
+        createdBy: parseInt(req.userId),
+        organizationId: parseInt(req.organizationId)
+      });
       
       // Check project limits before creating project
       if (projectData.organizationId) {
@@ -544,7 +566,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (project.clientId) {
         try {
           // Get client details
-          const client = await storage.getClient(project.clientId);
+          const client = await storage.getClient(project.clientId, parseInt(req.organizationId));
           if (client && client.email) {
             console.log(`📧 Sending project assignment email to client: ${client.email}`);
             
@@ -972,11 +994,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Old middleware removed - now using proper Clerk authentication from auth-middleware.ts
 
-  // Clients endpoints - Direct Supabase access (no authentication required)
-  app.get("/api/clients", async (req, res) => {
+  // Clients endpoints - Organization-scoped with role-based access control
+  app.get("/api/clients", authenticateUser, requireOrganizationAccess(), async (req: any, res) => {
     try {
-      const clients = await storage.getClients();
-      console.log('API returning clients:', JSON.stringify(clients, null, 2));
+      const organizationId = parseInt(req.organizationId);
+      
+      const clients = await storage.getClients(organizationId);
+      console.log(`API returning clients for organization ${organizationId}:`, JSON.stringify(clients, null, 2));
       res.json(clients);
     } catch (error) {
       console.error('Error fetching clients:', error);
@@ -984,10 +1008,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/clients/:id", async (req, res) => {
+  app.get("/api/clients/:id", authenticateUser, requireOrganizationAccess(), async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
-      const client = await storage.getClientWithProjects(id);
+      const organizationId = parseInt(req.organizationId);
+      
+      const client = await storage.getClientWithProjects(id, organizationId);
       if (!client) {
         return res.status(404).json({ error: "Client not found" });
       }
@@ -1106,22 +1132,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/clients", async (req: any, res) => {
+  app.post("/api/clients", authenticateUser, requireOrganizationAccess(['create_clients']), enforcePlanLimits('projects'), async (req: any, res) => {
     try {
-      // Direct Supabase save - extract user info from request body
-      const { clerkUserId, userEmail, ...clientFormData } = req.body;
+      const organizationId = parseInt(req.organizationId);
       
-      console.log('📝 Creating client with data:', { clerkUserId, userEmail, clientFormData });
+      console.log('📝 Creating client with data:', req.body);
       
       const clientData = insertClientSchema.parse({
-        ...clientFormData,
-        createdBy: 8, // Use existing user ID from Supabase
-        organizationId: 1, // Default organization
+        ...req.body,
+        createdBy: parseInt(req.userId), // Use authenticated user ID
+        organizationId: organizationId, // Use user's organization
       });
       
       console.log("Creating client with data:", JSON.stringify(clientData, null, 2));
       
-      // Save to Supabase (storage layer now uses Supabase directly)
+      // Save to Supabase with organization scoping
       const client = await storage.createClient(clientData);
       
       res.status(201).json(client);
@@ -1136,9 +1161,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/clients/:id", async (req, res) => {
+  app.put("/api/clients/:id", authenticateUser, requireOrganizationAccess(['edit_clients']), async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
+      const organizationId = parseInt(req.organizationId);
+      
+      // Verify client belongs to user's organization
+      const existingClient = await storage.getClient(id, organizationId);
+      if (!existingClient) {
+        return res.status(404).json({ error: "Client not found or access denied" });
+      }
+      
       const updatedClient = await storage.updateClient(id, req.body);
       if (!updatedClient) {
         return res.status(404).json({ error: "Client not found" });
@@ -1150,9 +1183,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/clients/:id", async (req, res) => {
+  app.delete("/api/clients/:id", authenticateUser, requireOrganizationAccess(['delete_clients']), async (req: any, res) => {
     try {
       const id = parseInt(req.params.id);
+      const organizationId = parseInt(req.organizationId);
+      
+      // Verify client belongs to user's organization before deletion
+      const existingClient = await storage.getClient(id, organizationId);
+      if (!existingClient) {
+        return res.status(404).json({ error: "Client not found or access denied" });
+      }
       console.log(`🗑️  Attempting to delete client ${id}`);
       const success = await storage.deleteClient(id);
       if (!success) {

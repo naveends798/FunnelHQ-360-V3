@@ -51,21 +51,21 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
 
   // Clients
-  getClients(): Promise<Client[]>;
-  getClient(id: number): Promise<Client | undefined>;
-  getClientByEmail(email: string): Promise<Client | undefined>;
-  getClientWithProjects(id: number): Promise<ClientWithProjects | undefined>;
+  getClients(organizationId?: number): Promise<Client[]>;
+  getClient(id: number, organizationId?: number): Promise<Client | undefined>;
+  getClientByEmail(email: string, organizationId?: number): Promise<Client | undefined>;
+  getClientWithProjects(id: number, organizationId?: number): Promise<ClientWithProjects | undefined>;
   createClient(client: InsertClient): Promise<Client>;
   updateClient(id: number, client: Partial<InsertClient>): Promise<Client | undefined>;
   deleteClient(id: number): Promise<boolean>;
 
   // Projects
-  getProjects(): Promise<Project[]>;
+  getProjects(organizationId?: number): Promise<Project[]>;
   getProjectsForUser(userId: number, organizationId: number): Promise<ProjectWithTeamMembers[]>;
-  getProject(id: number): Promise<Project | undefined>;
-  getProjectWithClient(id: number): Promise<ProjectWithClient | undefined>;
-  getProjectWithTeamMembers(id: number): Promise<ProjectWithTeamMembers | undefined>;
-  getProjectsByClient(clientId: number): Promise<Project[]>;
+  getProject(id: number, organizationId?: number): Promise<Project | undefined>;
+  getProjectWithClient(id: number, organizationId?: number): Promise<ProjectWithClient | undefined>;
+  getProjectWithTeamMembers(id: number, organizationId?: number): Promise<ProjectWithTeamMembers | undefined>;
+  getProjectsByClient(clientId: number, organizationId?: number): Promise<Project[]>;
   createProject(project: InsertProject): Promise<Project>;
   updateProject(id: number, project: Partial<InsertProject>): Promise<Project | undefined>;
   deleteProject(id: number): Promise<boolean>;
@@ -171,7 +171,7 @@ export interface IStorage {
   getProjectComments(projectId: number): Promise<CommentWithAuthor[]>;
   getComment(id: number): Promise<ProjectComment | undefined>;
   getCommentThread(parentId: number): Promise<CommentWithAuthor[]>;
-  createComment(comment: InsertProjectComment): Promise<ProjectComment>;
+  createProjectComment(comment: InsertProjectComment): Promise<ProjectComment>;
   updateComment(id: number, comment: Partial<InsertProjectComment>): Promise<ProjectComment | undefined>;
   deleteComment(id: number): Promise<boolean>;
   resolveComment(id: number, resolvedBy: number): Promise<ProjectComment | undefined>;
@@ -943,20 +943,36 @@ export class MemStorage implements IStorage {
   }
 
   // Clients
-  async getClients(): Promise<Client[]> {
-    return Array.from(this.clients.values());
+  async getClients(organizationId?: number): Promise<Client[]> {
+    const allClients = Array.from(this.clients.values());
+    if (organizationId) {
+      return allClients.filter(client => client.organizationId === organizationId);
+    }
+    return allClients;
   }
 
-  async getClient(id: number): Promise<Client | undefined> {
-    return this.clients.get(id);
-  }
-
-  async getClientByEmail(email: string): Promise<Client | undefined> {
-    return Array.from(this.clients.values()).find(client => client.email === email);
-  }
-
-  async getClientWithProjects(id: number): Promise<ClientWithProjects | undefined> {
+  async getClient(id: number, organizationId?: number): Promise<Client | undefined> {
     const client = this.clients.get(id);
+    if (!client) return undefined;
+    
+    // If organization scope is provided, verify client belongs to that organization
+    if (organizationId && client.organizationId !== organizationId) {
+      return undefined;
+    }
+    
+    return client;
+  }
+
+  async getClientByEmail(email: string, organizationId?: number): Promise<Client | undefined> {
+    const allClients = Array.from(this.clients.values());
+    if (organizationId) {
+      return allClients.find(client => client.email === email && client.organizationId === organizationId);
+    }
+    return allClients.find(client => client.email === email);
+  }
+
+  async getClientWithProjects(id: number, organizationId?: number): Promise<ClientWithProjects | undefined> {
+    const client = await this.getClient(id, organizationId);
     if (!client) return undefined;
 
     const clientProjects = Array.from(this.projects.values()).filter(p => p.clientId === id);
@@ -987,16 +1003,28 @@ export class MemStorage implements IStorage {
   }
 
   // Projects
-  async getProjects(): Promise<Project[]> {
-    return Array.from(this.projects.values());
+  async getProjects(organizationId?: number): Promise<Project[]> {
+    const allProjects = Array.from(this.projects.values());
+    if (organizationId) {
+      return allProjects.filter(project => project.organizationId === organizationId);
+    }
+    return allProjects;
   }
 
-  async getProject(id: number): Promise<Project | undefined> {
-    return this.projects.get(id);
-  }
-
-  async getProjectWithClient(id: number): Promise<ProjectWithClient | undefined> {
+  async getProject(id: number, organizationId?: number): Promise<Project | undefined> {
     const project = this.projects.get(id);
+    if (!project) return undefined;
+    
+    // If organization scope is provided, verify project belongs to that organization
+    if (organizationId && project.organizationId !== organizationId) {
+      return undefined;
+    }
+    
+    return project;
+  }
+
+  async getProjectWithClient(id: number, organizationId?: number): Promise<ProjectWithClient | undefined> {
+    const project = await this.getProject(id, organizationId);
     if (!project) return undefined;
 
     const client = this.clients.get(project.clientId);
@@ -1013,8 +1041,12 @@ export class MemStorage implements IStorage {
     };
   }
 
-  async getProjectsByClient(clientId: number): Promise<Project[]> {
-    return Array.from(this.projects.values()).filter(p => p.clientId === clientId);
+  async getProjectsByClient(clientId: number, organizationId?: number): Promise<Project[]> {
+    const allProjects = Array.from(this.projects.values()).filter(p => p.clientId === clientId);
+    if (organizationId) {
+      return allProjects.filter(project => project.organizationId === organizationId);
+    }
+    return allProjects;
   }
 
   async createProject(insertProject: InsertProject): Promise<Project> {

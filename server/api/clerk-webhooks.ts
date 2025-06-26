@@ -169,8 +169,8 @@ async function handleUserCreated(evt: WebhookEvent) {
   const userData = {
     email: email_addresses?.[0]?.email_address,
     name: `${first_name || ''} ${last_name || ''}`.trim(),
-    clerkUserId: id, // Add Clerk user ID
-    subscriptionPlan: 'pro_trial' // New users get 14-day trial
+    clerkUserId: id // Add Clerk user ID
+    // Billing information now handled at organization level
   };
 
   console.log('🔄 Creating user in Supabase:', userData);
@@ -203,6 +203,79 @@ async function handleUserCreated(evt: WebhookEvent) {
       email: result.email,
       subscriptionPlan: result.subscriptionPlan
     });
+
+    // AUTO-CREATE ORGANIZATION FOR NEW USER (Phase 1.1)
+    if (userRole === 'admin') {
+      try {
+        console.log('🏢 Auto-creating organization for new admin user...');
+        
+        // Generate organization name from user's name
+        const orgName = userData.name 
+          ? `${userData.name}'s Organization`
+          : `${email.split('@')[0]}'s Organization`;
+        
+        // Generate a unique Clerk organization ID for internal tracking
+        const autoClerkOrgId = `auto_org_${id}_${Date.now()}`;
+        
+        // Create organization
+        const orgData = {
+          clerkOrgId: autoClerkOrgId,
+          name: orgName,
+          slug: orgName.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
+          createdBy: id,
+          plan: 'pro_trial'
+        };
+
+        const orgResponse = await fetch('http://localhost:3000/api/supabase/organizations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(orgData),
+          timeout: 10000
+        });
+
+        if (!orgResponse.ok) {
+          const errorText = await orgResponse.text();
+          throw new Error(`Failed to create organization: ${errorText}`);
+        }
+
+        const orgResult = await orgResponse.json();
+        console.log('✅ Auto-created organization:', orgResult.organization.name);
+
+        // Link user to the organization as admin
+        const membershipData = {
+          organizationId: orgResult.organization.id,
+          clerkUserId: id,
+          role: 'admin'
+        };
+
+        const membershipResponse = await fetch('http://localhost:3000/api/supabase/organizations/memberships', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(membershipData),
+          timeout: 10000
+        });
+
+        if (!membershipResponse.ok) {
+          const errorText = await membershipResponse.text();
+          throw new Error(`Failed to create organization membership: ${errorText}`);
+        }
+
+        const membershipResult = await membershipResponse.json();
+        console.log('✅ Created organization membership for admin user');
+
+        return { user: result, organization: orgResult.organization, membership: membershipResult.membership };
+
+      } catch (orgError) {
+        console.error('❌ Error auto-creating organization for user:', orgError);
+        // Don't fail the entire webhook if organization creation fails
+        console.warn('⚠️ User created successfully but organization creation failed');
+        return result;
+      }
+    }
 
     return result;
   } catch (error) {

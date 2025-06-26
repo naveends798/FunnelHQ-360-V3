@@ -175,8 +175,8 @@ export class SupabaseStorage implements IStorage {
   }
 
   // ============ CLIENTS ============
-  async getClients(): Promise<Client[]> {
-    const { data, error } = await this.supabase
+  async getClients(organizationId?: number): Promise<Client[]> {
+    let query = this.supabase
       .from('clients')
       .select(`
         id,
@@ -185,9 +185,17 @@ export class SupabaseStorage implements IStorage {
         avatar,
         notes,
         created_by,
+        organization_id,
         joined_at
       `)
       .order('joined_at', { ascending: false });
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query;
     
     if (error) {
       console.error('Error fetching clients:', error);
@@ -198,25 +206,32 @@ export class SupabaseStorage implements IStorage {
     const clients = (data || []).map(client => ({
       ...client,
       joinedAt: client.joined_at,
-      createdBy: client.created_by
+      createdBy: client.created_by,
+      organizationId: client.organization_id
     }));
     
-    console.log('Transformed clients with dates:', clients.map(c => ({ 
+    console.log(`Transformed clients for organization ${organizationId}:`, clients.map(c => ({ 
       id: c.id, 
       name: c.name, 
-      joinedAt: c.joinedAt,
-      joined_at: c.joined_at 
+      organizationId: c.organizationId,
+      joinedAt: c.joinedAt
     })));
     
     return clients;
   }
 
-  async getClient(id: number): Promise<Client | undefined> {
-    const { data, error } = await this.supabase
+  async getClient(id: number, organizationId?: number): Promise<Client | undefined> {
+    let query = this.supabase
       .from('clients')
       .select('*')
-      .eq('id', id)
-      .single();
+      .eq('id', id);
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query.single();
     
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching client:', error);
@@ -233,12 +248,18 @@ export class SupabaseStorage implements IStorage {
     };
   }
 
-  async getClientByEmail(email: string): Promise<Client | undefined> {
-    const { data, error } = await this.supabase
+  async getClientByEmail(email: string, organizationId?: number): Promise<Client | undefined> {
+    let query = this.supabase
       .from('clients')
       .select('*')
-      .eq('email', email)
-      .single();
+      .eq('email', email);
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query.single();
     
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching client by email:', error);
@@ -247,11 +268,11 @@ export class SupabaseStorage implements IStorage {
     return data || undefined;
   }
 
-  async getClientWithProjects(id: number): Promise<ClientWithProjects | undefined> {
-    const client = await this.getClient(id);
+  async getClientWithProjects(id: number, organizationId?: number): Promise<ClientWithProjects | undefined> {
+    const client = await this.getClient(id, organizationId);
     if (!client) return undefined;
     
-    const projects = await this.getProjectsByClient(id);
+    const projects = await this.getProjectsByClient(id, organizationId);
     return { ...client, projects };
   }
 
@@ -428,11 +449,18 @@ export class SupabaseStorage implements IStorage {
   }
 
   // ============ PROJECTS ============
-  async getProjects(): Promise<Project[]> {
-    const { data, error } = await this.supabase
+  async getProjects(organizationId?: number): Promise<Project[]> {
+    let query = this.supabase
       .from('projects')
       .select('*')
       .order('created_at', { ascending: false });
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query;
     
     if (error) {
       console.error('Error fetching projects:', error);
@@ -456,35 +484,38 @@ export class SupabaseStorage implements IStorage {
 
     const assignedProjectIds = projectIds?.map(p => p.project_id) || [];
     
-    // Get projects owned by the user
+    // Get projects owned by the user (with organization filter)
     const { data: ownedProjects, error: ownedError } = await this.supabase
       .from('projects')
       .select('*')
-      .eq('owner_id', userId);
+      .eq('owner_id', userId)
+      .eq('organization_id', organizationId);
 
     if (ownedError) {
       console.error('Error fetching owned projects:', ownedError);
       throw ownedError;
     }
 
-    // Get projects where user is the client
+    // Get projects where user is the client (with organization filter)
     const { data: clientProjects, error: clientError } = await this.supabase
       .from('projects')
       .select('*')
-      .eq('client_id', userId);
+      .eq('client_id', userId)
+      .eq('organization_id', organizationId);
 
     if (clientError) {
       console.error('Error fetching client projects:', clientError);
       throw clientError;
     }
 
-    // Get assigned projects
+    // Get assigned projects (with organization filter)
     let assignedProjects: Project[] = [];
     if (assignedProjectIds.length > 0) {
       const { data, error } = await this.supabase
         .from('projects')
         .select('*')
-        .in('id', assignedProjectIds);
+        .in('id', assignedProjectIds)
+        .eq('organization_id', organizationId);
 
       if (error) {
         console.error('Error fetching assigned projects:', error);
@@ -518,12 +549,18 @@ export class SupabaseStorage implements IStorage {
     return projectsWithTeamMembers;
   }
 
-  async getProject(id: number): Promise<Project | undefined> {
-    const { data, error } = await this.supabase
+  async getProject(id: number, organizationId?: number): Promise<Project | undefined> {
+    let query = this.supabase
       .from('projects')
       .select('*')
-      .eq('id', id)
-      .single();
+      .eq('id', id);
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query.single();
     
     if (error && error.code !== 'PGRST116') {
       console.error('Error fetching project:', error);
@@ -532,11 +569,11 @@ export class SupabaseStorage implements IStorage {
     return data || undefined;
   }
 
-  async getProjectWithClient(id: number): Promise<ProjectWithClient | undefined> {
-    const project = await this.getProject(id);
+  async getProjectWithClient(id: number, organizationId?: number): Promise<ProjectWithClient | undefined> {
+    const project = await this.getProject(id, organizationId);
     if (!project) return undefined;
     
-    const client = await this.getClient(project.client_id);
+    const client = await this.getClient(project.client_id, organizationId);
     if (!client) return undefined;
 
     const milestones = await this.getMilestonesByProject(id);
@@ -550,11 +587,11 @@ export class SupabaseStorage implements IStorage {
     };
   }
 
-  async getProjectWithTeamMembers(id: number): Promise<ProjectWithTeamMembers | undefined> {
-    const project = await this.getProject(id);
+  async getProjectWithTeamMembers(id: number, organizationId?: number): Promise<ProjectWithTeamMembers | undefined> {
+    const project = await this.getProject(id, organizationId);
     if (!project) return undefined;
     
-    const client = await this.getClient(project.client_id);
+    const client = await this.getClient(project.client_id, organizationId);
     const owner = await this.getUser(project.owner_id);
     const teamMembers = await this.getProjectTeamMembers(id);
     
@@ -568,12 +605,19 @@ export class SupabaseStorage implements IStorage {
     };
   }
 
-  async getProjectsByClient(clientId: number): Promise<Project[]> {
-    const { data, error } = await this.supabase
+  async getProjectsByClient(clientId: number, organizationId?: number): Promise<Project[]> {
+    let query = this.supabase
       .from('projects')
       .select('*')
       .eq('client_id', clientId)
       .order('created_at', { ascending: false });
+    
+    // Apply organization filter if provided
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    }
+    
+    const { data, error } = await query;
     
     if (error) {
       console.error('Error fetching projects by client:', error);
@@ -589,6 +633,7 @@ export class SupabaseStorage implements IStorage {
       description: project.description,
       client_id: project.clientId,
       owner_id: project.ownerId,
+      organization_id: project.organizationId, // Organization ID is now required
       status: project.status || 'active', // Ensure status has default value
       progress: project.progress || 0,
       budget: project.budget,
