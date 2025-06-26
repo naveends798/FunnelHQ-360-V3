@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Clerk Connection</title>
+    <script src="https://unpkg.com/@clerk/clerk-js@4/dist/clerk.browser.js"></script>
+</head>
+<body>
+    <h1>Clerk Connection Test</h1>
+    <div id="clerk-status">Testing Clerk connection...</div>
+    <div id="test-results"></div>
+    
+    <br><br>
+    <button onclick="testClerkLoad()">Test Clerk Load</button>
+    <button onclick="testEnvironment()">Test Environment</button>
+
+    <script>
+        const CLERK_PUBLISHABLE_KEY = 'pk_test_Z2VudGxlLXRvbWNhdC05MS5jbGVyay5hY2NvdW50cy5kZXYk';
+        
+        async function testClerkLoad() {
+            const resultsDiv = document.getElementById('test-results');
+            
+            try {
+                resultsDiv.innerHTML = '<p>Loading Clerk...</p>';
+                
+                // Initialize Clerk
+                const clerk = window.Clerk;
+                await clerk.load({
+                    publishableKey: CLERK_PUBLISHABLE_KEY
+                });
+                
+                resultsDiv.innerHTML += '<p>✅ Clerk loaded successfully</p>';
+                resultsDiv.innerHTML += `<p>Clerk version: ${clerk.version || 'unknown'}</p>`;
+                resultsDiv.innerHTML += `<p>Environment: ${clerk.environment || 'unknown'}</p>`;
+                
+                // Test if user is signed in
+                if (clerk.user) {
+                    resultsDiv.innerHTML += '<p>✅ User is signed in</p>';
+                    resultsDiv.innerHTML += `<p>User ID: ${clerk.user.id.substring(0, 8)}...</p>`;
+                } else {
+                    resultsDiv.innerHTML += '<p>ℹ️ No user signed in</p>';
+                }
+                
+            } catch (error) {
+                console.error('Clerk test error:', error);
+                resultsDiv.innerHTML += `<p>❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        function testEnvironment() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '';
+            
+            resultsDiv.innerHTML += `<p><strong>Environment Test:</strong></p>`;
+            resultsDiv.innerHTML += `<p>Publishable Key: ${CLERK_PUBLISHABLE_KEY.substring(0, 20)}...</p>`;
+            resultsDiv.innerHTML += `<p>Key starts with pk_test: ${CLERK_PUBLISHABLE_KEY.startsWith('pk_test_') ? '✅' : '❌'}</p>`;
+            resultsDiv.innerHTML += `<p>Current URL: ${window.location.href}</p>`;
+            resultsDiv.innerHTML += `<p>User Agent: ${navigator.userAgent.substring(0, 100)}...</p>`;
+        }
+        
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            document.getElementById('clerk-status').innerHTML = 'Ready to test';
+            testEnvironment();
+        });
+    </script>
+</body>
+</html>

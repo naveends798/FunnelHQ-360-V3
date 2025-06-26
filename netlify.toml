@@ -1,0 +1,25 @@
+[build]
+  publish = "client/dist"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  SECRETS_SCAN_OMIT_KEYS = "VITE_CLERK_PUBLISHABLE_KEY,VITE_SUPABASE_ANON_KEY"
+
+[functions]
+  directory = "netlify/functions/"
+
+[[redirects]]
+  from = "/api/webhooks/clerk"
+  to = "/.netlify/functions/clerk-webhook"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Environment files with secrets
+.env
+.env.local
+.env.production
+.env.railway.template
