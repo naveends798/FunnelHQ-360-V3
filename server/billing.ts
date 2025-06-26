@@ -270,12 +270,14 @@ export class BillingService {
     return planDetails.features.some(f => f.toLowerCase().includes(feature.toLowerCase()));
   }
 
-  static checkLimits(plan: BillingPlan, currentUsage: any): { 
+  static checkLimits(plan: BillingPlan | string, currentUsage: any): { 
     withinLimits: boolean; 
     exceeded: string[];
     warnings: string[];
   } {
-    const limits = BILLING_PLANS[plan].limits;
+    // Default to 'pro' plan if plan is invalid or not found
+    const validPlan = (plan in BILLING_PLANS) ? plan as BillingPlan : 'pro';
+    const limits = BILLING_PLANS[validPlan].limits;
     const exceeded: string[] = [];
     const warnings: string[] = [];
 

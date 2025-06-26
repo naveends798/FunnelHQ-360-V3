@@ -132,6 +132,7 @@ export interface IStorage {
   cancelTeamInvitation(id: number): Promise<boolean>;
   updateUserRole(userId: number, organizationId: number, role: string): Promise<UserRole | undefined>;
   suspendUser(userId: number, suspend: boolean): Promise<boolean>;
+  removeUserFromOrganization(userId: number, organizationId: number): Promise<boolean>;
 
   // Enhanced Invitation System
   validateInvitationToken(token: string): Promise<UserInvitation | null>;
@@ -212,6 +213,7 @@ export interface IStorage {
   getOrganizationWithBilling(id: number): Promise<OrganizationWithBilling | undefined>;
   getOrganizationUsage(id: number): Promise<{ projects: number; collaborators: number; storage: number }>;
   updateOrganizationBilling(id: number, data: any): Promise<Organization | undefined>;
+  updateOrganizationPlan(organizationId: number, plan: string): Promise<any>;
   updateUser(id: number, data: any): Promise<User | undefined>;
   getAllUserRoles(organizationId: number): Promise<UserRole[]>;
 
@@ -1680,6 +1682,19 @@ export class MemStorage implements IStorage {
     return true;
   }
 
+  async removeUserFromOrganization(userId: number, organizationId: number): Promise<boolean> {
+    // Remove user role from organization
+    const userRole = Array.from(this.userRoles.values()).find(r => r.userId === userId && r.organizationId === organizationId);
+    if (userRole) {
+      this.userRoles.delete(userRole.id);
+      console.log('🔍 Removed user role:', userRole);
+    }
+    
+    // Note: We don't delete the user entirely, just remove them from this organization
+    // The user can still exist in other organizations or have their own account
+    return true;
+  }
+
   // Debug method to get all user roles
   async getAllUserRoles(): Promise<UserRole[]> {
     return Array.from(this.userRoles.values());
@@ -2351,6 +2366,7 @@ export class MemStorage implements IStorage {
       users: orgUsers,
       projects: orgProjects,
       currentPlan,
+      subscriptionPlan: organization.plan, // Add subscriptionPlan for frontend compatibility
       usage,
     };
   }
@@ -2388,6 +2404,16 @@ export class MemStorage implements IStorage {
       collaborators: orgUsers.length,
       storage: this.calculateStorageUsage(organizationId),
     };
+  }
+
+  async updateOrganizationPlan(organizationId: number, plan: string): Promise<any> {
+    const organization = this.organizations.get(organizationId);
+    if (!organization) return undefined;
+
+    const updated = { ...organization, plan };
+    this.organizations.set(organizationId, updated);
+    
+    return this.getOrganizationWithBilling(organizationId);
   }
 
   // Support Ticket Management Methods

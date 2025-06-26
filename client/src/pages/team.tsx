@@ -39,7 +39,8 @@ import {
   AlertTriangle,
   ArrowUpRight,
   Upload,
-  Camera
+  Camera,
+  Trash2
 } from "lucide-react";
 
 // Helper functions for team member display
@@ -121,6 +122,17 @@ export default function TeamPage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [isAssignmentMatrixOpen, setIsAssignmentMatrixOpen] = useState(false);
+  
+  // Team Member Edit Modal State
+  const [selectedMember, setSelectedMember] = useState<any>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editRole, setEditRole] = useState("");
+  const [editSpecialization, setEditSpecialization] = useState("");
+  const [editStatus, setEditStatus] = useState("");
+  const [editAvatarFile, setEditAvatarFile] = useState<File | null>(null);
+  const [editAvatarPreview, setEditAvatarPreview] = useState<string | null>(null);
 
   const { user, isAdmin, currentRole } = useAuth();
   const { toast } = useToast();
@@ -150,6 +162,7 @@ export default function TeamPage() {
     cancelInvitation,
     updateMemberRole,
     suspendMember,
+    removeMember,
     refetch
   } = useTeam({
     organizationId: 1 // TODO: Get from auth context
@@ -266,6 +279,119 @@ export default function TeamPage() {
     }
   };
 
+  const handleRemoveMember = async (memberId: number, memberName: string) => {
+    if (window.confirm(`Are you sure you want to remove ${memberName} from this organization? They will lose access to all projects and resources.`)) {
+      try {
+        await removeMember(memberId);
+        toast({
+          title: "Team member removed",
+          description: `${memberName} has been removed from the organization`,
+        });
+      } catch (error) {
+        toast({
+          title: "Error removing team member",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
+  const handleMemberClick = (member: any) => {
+    setSelectedMember(member);
+    setEditName(member.name);
+    setEditEmail(member.email);
+    setEditRole(member.role);
+    setEditSpecialization(member.specialization || "developer");
+    setEditStatus(member.status);
+    setEditAvatarPreview(member.avatar);
+    setEditAvatarFile(null);
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setEditAvatarFile(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setEditAvatarPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveChanges = async () => {
+    if (!selectedMember) return;
+
+    try {
+      // Update role if changed
+      if (editRole !== selectedMember.role) {
+        await updateMemberRole(selectedMember.id, editRole);
+      }
+
+      // Update status if changed
+      if (editStatus !== selectedMember.status) {
+        const shouldSuspend = editStatus === "suspended";
+        await suspendMember(selectedMember.id, shouldSuspend);
+      }
+
+      // TODO: Add name and email update functionality
+      // TODO: Add avatar update functionality
+
+      setIsEditModalOpen(false);
+      toast({
+        title: "Member updated",
+        description: `${editName} has been updated successfully`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error updating member",
+        description: error instanceof Error ? error.message : "Unknown error",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDeleteMember = async () => {
+    if (!selectedMember) return;
+
+    // Prevent self-deletion
+    if (selectedMember.id === user?.id) {
+      toast({
+        title: "Cannot delete yourself",
+        description: "You cannot remove your own account from the organization",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Show appropriate confirmation message
+    const isLastAdmin = selectedMember.role === "admin" && teamMembers.filter(m => m.role === "admin").length === 1;
+    let confirmMessage = `Are you sure you want to permanently remove ${selectedMember.name} from this organization? This action cannot be undone.`;
+    
+    if (isLastAdmin) {
+      confirmMessage = `Warning: ${selectedMember.name} is the last admin in this organization. Removing them will leave the organization without any administrators. Are you sure you want to continue?`;
+    }
+
+    if (window.confirm(confirmMessage)) {
+      try {
+        await removeMember(selectedMember.id);
+        setIsEditModalOpen(false);
+        toast({
+          title: "Member removed",
+          description: `${selectedMember.name} has been removed from the organization`,
+        });
+      } catch (error) {
+        toast({
+          title: "Error removing member",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        });
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen gradient-bg">
       <Sidebar />
@@ -324,9 +450,6 @@ export default function TeamPage() {
                   Project Assignments
                 </Button>
                 
-                <InvitationManagementPanel />
-                
-                <SecurityMonitor />
                 
                 <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
                   <DialogTrigger asChild>
@@ -594,7 +717,8 @@ export default function TeamPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
-                            className="glass rounded-lg p-4 hover:bg-white/10 transition-colors"
+                            className="glass rounded-lg p-4 hover:bg-white/10 transition-all cursor-pointer group hover:scale-[1.02] hover:shadow-lg"
+                            onClick={() => handleMemberClick(member)}
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex items-center space-x-3">
@@ -629,51 +753,6 @@ export default function TeamPage() {
                               <Badge className={getStatusColor(member.status)}>
                                 {member.status}
                               </Badge>
-                              
-                              {isAdmin && member.role !== "admin" && (
-                                <DropdownMenu>
-                                  <DropdownMenuTrigger asChild>
-                                    <Button
-                                      variant="ghost"
-                                      size="icon"
-                                      className="h-8 w-8 text-slate-400 hover:text-white"
-                                    >
-                                      <MoreHorizontal className="h-4 w-4" />
-                                    </Button>
-                                  </DropdownMenuTrigger>
-                                  <DropdownMenuContent className="glass-dark border-white/10" align="end">
-                                    <DropdownMenuItem 
-                                      onClick={() => handleUpdateMemberRole(member.id, member.role === "team_member" ? "admin" : "team_member")}
-                                      className="text-slate-300 hover:text-white hover:bg-white/10"
-                                    >
-                                      <Edit className="h-4 w-4 mr-2" />
-                                      Change to {member.role === "team_member" ? "Admin" : "Team Member"}
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator className="bg-white/10" />
-                                    <DropdownMenuItem 
-                                      onClick={() => handleSuspendMember(member.id, member.status === "suspended")}
-                                      className={cn(
-                                        "hover:bg-white/10",
-                                        member.status === "suspended" 
-                                          ? "text-green-400 hover:text-green-300" 
-                                          : "text-red-400 hover:text-red-300"
-                                      )}
-                                    >
-                                      {member.status === "suspended" ? (
-                                        <>
-                                          <UserCheck2 className="h-4 w-4 mr-2" />
-                                          Reactivate Member
-                                        </>
-                                      ) : (
-                                        <>
-                                          <UserMinus className="h-4 w-4 mr-2" />
-                                          Suspend Member
-                                        </>
-                                      )}
-                                    </DropdownMenuItem>
-                                  </DropdownMenuContent>
-                                </DropdownMenu>
-                              )}
                             </div>
                           </div>
                         </motion.div>
@@ -780,6 +859,200 @@ export default function TeamPage() {
         </div>
       </main>
       
+      {/* Team Member Edit Modal */}
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="glass-dark border-white/10 max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center">
+              <Edit className="h-5 w-5 mr-2" />
+              Edit Team Member
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              Update member details, role, and status
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedMember && (
+            <div className="space-y-6">
+              {/* Profile Section */}
+              <div className="flex items-start space-x-6 p-4 glass rounded-lg">
+                <div className="flex-shrink-0">
+                  {editAvatarPreview ? (
+                    <img
+                      src={editAvatarPreview}
+                      alt="Profile preview"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-white/20"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full bg-white/10 border-2 border-white/20 flex items-center justify-center">
+                      <User className="h-10 w-10 text-white/40" />
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    id="editAvatar"
+                    accept="image/*"
+                    onChange={handleEditAvatarChange}
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="editAvatar"
+                    className="mt-2 flex items-center justify-center px-3 py-1 border border-white/20 rounded-md cursor-pointer hover:bg-white/10 transition-colors text-xs"
+                  >
+                    <Camera className="h-3 w-3 mr-1 text-white" />
+                    <span className="text-white">Change</span>
+                  </label>
+                </div>
+                
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <Label htmlFor="editName" className="text-white">Full Name</Label>
+                    <Input
+                      id="editName"
+                      type="text"
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      className="bg-white/5 border-white/10 text-white"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="editEmail" className="text-white">Email Address</Label>
+                    <Input
+                      id="editEmail"
+                      type="email"
+                      value={editEmail}
+                      onChange={(e) => setEditEmail(e.target.value)}
+                      className="bg-white/5 border-white/10 text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Role and Status Section */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="editRole" className="text-white">Organization Role</Label>
+                  <Select value={editRole} onValueChange={setEditRole}>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-dark border-white/10">
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="team_member">Team Member</SelectItem>
+                      <SelectItem value="client">Client</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div>
+                  <Label htmlFor="editStatus" className="text-white">Status</Label>
+                  <Select value={editStatus} onValueChange={setEditStatus}>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-dark border-white/10">
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="suspended">Suspended</SelectItem>
+                      <SelectItem value="pending">Pending</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {editRole !== "client" && (
+                <div>
+                  <Label htmlFor="editSpecialization" className="text-white">Specialization</Label>
+                  <Select value={editSpecialization} onValueChange={setEditSpecialization}>
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="glass-dark border-white/10">
+                      <SelectItem value="developer">Developer</SelectItem>
+                      <SelectItem value="designer">Designer</SelectItem>
+                      <SelectItem value="project_manager">Project Manager</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Member Info */}
+              <div className="p-4 glass rounded-lg">
+                <h4 className="text-white font-medium mb-2">Member Information</h4>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-slate-400">Member ID:</span>
+                    <span className="text-white ml-2">{selectedMember.id}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Joined:</span>
+                    <span className="text-white ml-2">
+                      {selectedMember.createdAt ? new Date(selectedMember.createdAt).toLocaleDateString() : 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Last Active:</span>
+                    <span className="text-white ml-2">
+                      {selectedMember.lastLoginAt ? formatTimeAgo(new Date(selectedMember.lastLoginAt)) : 'Never'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Projects:</span>
+                    <span className="text-white ml-2">0</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-6 border-t border-white/10">
+                {/* Debug info - remove after testing */}
+                {process.env.NODE_ENV === 'development' && (
+                  <div className="text-xs text-slate-500 mb-4 text-center">
+                    Debug: isAdmin: {String(isAdmin)} | memberRole: {selectedMember.role}
+                  </div>
+                )}
+                
+                <div className="flex flex-col space-y-3">
+                  {/* Primary Actions Row */}
+                  <div className="flex space-x-3">
+                    <Button
+                      variant="ghost"
+                      onClick={() => setIsEditModalOpen(false)}
+                      className="flex-1 text-slate-400 hover:text-white hover:bg-white/10"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={handleSaveChanges}
+                      className="flex-1 gradient-primary"
+                    >
+                      <Check className="h-4 w-4 mr-2" />
+                      Save Changes
+                    </Button>
+                  </div>
+                  
+                  {/* Destructive Action Row */}
+                  {isAdmin && (
+                    <div className="flex justify-center pt-2">
+                      <Button
+                        onClick={handleDeleteMember}
+                        variant="outline"
+                        className="text-red-400 border-red-400/30 hover:text-red-300 hover:bg-red-900/20 hover:border-red-400/50"
+                        disabled={selectedMember.role === "admin" && selectedMember.id === user?.id}
+                        title={selectedMember.role === "admin" && selectedMember.id === user?.id ? "Cannot delete yourself" : "Remove member from organization"}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Remove Member from Organization
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       {/* Project Assignment Matrix */}
       <ProjectAssignmentMatrix
         isOpen={isAssignmentMatrixOpen}

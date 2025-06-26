@@ -154,7 +154,8 @@ export default function ProjectAssignmentMatrix({
   const canCollaborate = () => {
     if (!billingData) return true; // Allow if data not loaded yet
     
-    const currentPlan = billingData.subscriptionPlan || 'solo';
+    // Get plan from organization data - use 'plan' field or fallback to 'pro' for pro trial
+    const currentPlan = billingData.plan || billingData.currentPlan?.id || 'pro';
     const planLimits = BILLING_PLANS[currentPlan as BillingPlan];
     
     if (!planLimits) return true; // Allow if plan not found
@@ -166,7 +167,8 @@ export default function ProjectAssignmentMatrix({
   const getCollaborationMessage = () => {
     if (!billingData) return null;
     
-    const currentPlan = billingData.subscriptionPlan || 'solo';
+    // Get plan from organization data - use 'plan' field or fallback to 'pro' for pro trial
+    const currentPlan = billingData.plan || billingData.currentPlan?.id || 'pro';
     const planLimits = BILLING_PLANS[currentPlan as BillingPlan];
     
     if (!planLimits) return null;

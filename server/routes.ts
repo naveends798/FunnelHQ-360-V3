@@ -194,7 +194,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(invitation);
     } catch (error) {
       console.error("Error creating invitation:", error);
-      res.status(500).json({ error: "Failed to create invitation" });
+      res.status(500).json({ 
+        error: "Failed to create invitation",
+        details: error instanceof Error ? error.message : String(error),
+        errorType: typeof error,
+        stack: error instanceof Error ? error.stack : undefined
+      });
     }
   });
 
@@ -1348,22 +1353,106 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log('🔍 Avatar uploaded:', avatarUrl);
       }
       
-      // Create user in the database
-      const userData = {
-        name: name || email.split('@')[0],
-        email,
-        specialization: specialization || 'developer',
-        lastLoginAt: null,
-        avatar: avatarUrl,
-        isActive: true
-      };
+      // Always allow adding team members - multi-tenancy support
+      // Check if user exists globally - if so, just add them to this organization
+      let user;
+      try {
+        const allUsers = await storage.getUsers();
+        const existingUser = allUsers.find(user => user.email === email);
+        
+        if (existingUser) {
+          // User exists globally, update their data if avatar or name was provided
+          console.log('🔍 Adding existing user to organization:', { userId: existingUser.id, organizationId: parseInt(organizationId), role });
+          
+          // Update existing user data if new info provided
+          if (avatarUrl || (name && name !== existingUser.name) || (specialization && specialization !== existingUser.specialization)) {
+            const updatedData = {
+              ...(avatarUrl && { avatar: avatarUrl }),
+              ...(name && name !== existingUser.name && { name }),
+              ...(specialization && specialization !== existingUser.specialization && { specialization })
+            };
+            console.log('🔍 Updating existing user with new data:', updatedData);
+            user = await storage.updateUser(existingUser.id, updatedData);
+            if (!user) user = existingUser; // Fallback if update returns undefined
+          } else {
+            user = existingUser;
+          }
+        } else {
+          // Create new user - if this fails due to duplicate email, try to find the user again
+          const userData = {
+            name: name || email.split('@')[0],
+            email,
+            specialization: specialization || 'developer',
+            avatar: avatarUrl,
+            // Team members should not have their own subscription plans
+            // They access resources through the organization they're invited to
+            subscription_plan: 'none', // Explicitly set to 'none' instead of default 'solo'
+            subscription_status: 'none', // No personal subscription status
+            max_projects: 0, // Team members don't get personal project limits
+            stripe_customer_id: null,
+            stripe_subscription_id: null
+          };
+          
+          console.log('🔍 Creating new user with data:', userData);
+          try {
+            user = await storage.createUser(userData);
+            console.log('✅ Created new user:', user);
+          } catch (createError: any) {
+            // If user creation fails due to duplicate email, try to find the existing user
+            console.log('🔍 User creation failed, likely due to duplicate email. Searching for existing user...');
+            console.log('Create error:', createError.message);
+            
+            if (createError.message && createError.message.includes('duplicate') || createError.code === '23505') {
+              // Refresh users list and try to find the existing user
+              const refreshedUsers = await storage.getUsers();
+              const foundUser = refreshedUsers.find(u => u.email === email);
+              
+              if (foundUser) {
+                console.log('✅ Found existing user after creation failure:', foundUser);
+                user = foundUser;
+                
+                // Update with new data if provided
+                if (avatarUrl || (name && name !== foundUser.name) || (specialization && specialization !== foundUser.specialization)) {
+                  const updatedData = {
+                    ...(avatarUrl && { avatar: avatarUrl }),
+                    ...(name && name !== foundUser.name && { name }),
+                    ...(specialization && specialization !== foundUser.specialization && { specialization })
+                  };
+                  console.log('🔍 Updating found user with new data:', updatedData);
+                  const updatedUser = await storage.updateUser(foundUser.id, updatedData);
+                  if (updatedUser) user = updatedUser;
+                }
+              } else {
+                throw createError; // Re-throw if we can't find the user
+              }
+            } else {
+              throw createError; // Re-throw if it's not a duplicate error
+            }
+          }
+        }
+      } catch (searchError) {
+        console.error('❌ Error in user lookup/creation process:', searchError);
+        throw new Error(`Failed to process user: ${searchError instanceof Error ? searchError.message : String(searchError)}`);
+      }
       
-      const user = await storage.createUser(userData);
-      console.log('🔍 Created user:', user);
+      // Check if user is already in this organization
+      const existingMembers = await storage.getTeamMembers(parseInt(organizationId));
+      const isAlreadyMember = existingMembers.some(member => member.id === user.id);
       
-      // Add user role entry
-      const userRole = await storage.updateUserRole(user.id, parseInt(organizationId), role);
-      console.log('🔍 Created user role:', userRole);
+      if (isAlreadyMember) {
+        console.log('🔍 User is already a member of this organization, updating role...');
+        // Update their role instead of creating new
+        const userRole = await storage.updateUserRole(user.id, parseInt(organizationId), role);
+        console.log('🔍 Updated user role:', userRole);
+      } else {
+        // Add user role entry for this organization
+        console.log('🔍 Adding user role:', { userId: user.id, organizationId: parseInt(organizationId), role });
+        const userRole = await storage.updateUserRole(user.id, parseInt(organizationId), role);
+        console.log('🔍 Created user role:', userRole);
+        
+        // Note: updateUserRole might return undefined for new roles in some implementations
+        // This is acceptable as long as no error was thrown
+      }
       
       res.status(201).json(user);
     } catch (error) {
@@ -1380,7 +1469,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.status(500).json({ 
         error: "Failed to add team member", 
-        details: error instanceof Error ? error.message : "Unknown error" 
+        details: error instanceof Error ? error.message : JSON.stringify(error, null, 2),
+        errorType: typeof error,
+        stack: error instanceof Error ? error.stack : undefined,
+        rawError: error
       });
     }
   });
@@ -1424,7 +1516,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid invitation data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to create invitation" });
+      res.status(500).json({ 
+        error: "Failed to create invitation",
+        details: error instanceof Error ? error.message : String(error),
+        errorType: typeof error,
+        stack: error instanceof Error ? error.stack : undefined
+      });
     }
   });
 
@@ -1485,6 +1582,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ suspended: suspend });
     } catch (error) {
       res.status(500).json({ error: "Failed to update user status" });
+    }
+  });
+
+  app.delete("/api/team/members/:id", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.id);
+      const { organizationId } = req.query;
+      
+      if (!organizationId) {
+        return res.status(400).json({ error: "Organization ID is required" });
+      }
+      
+      // Remove user from organization (not delete the user entirely, just remove from org)
+      const success = await storage.removeUserFromOrganization(userId, parseInt(organizationId as string));
+      if (!success) {
+        return res.status(404).json({ error: "User not found in organization" });
+      }
+      
+      res.status(204).send();
+    } catch (error) {
+      console.error("Failed to remove team member:", error);
+      res.status(500).json({ 
+        error: "Failed to remove team member",
+        details: error instanceof Error ? error.message : String(error)
+      });
     }
   });
 
@@ -2097,6 +2219,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(orgWithBilling);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch billing information" });
+    }
+  });
+
+  // Admin route to update organization plan (temporary fix)
+  app.patch("/api/admin/organizations/:organizationId/plan", async (req, res) => {
+    try {
+      const organizationId = parseInt(req.params.organizationId);
+      const { plan } = req.body;
+      
+      if (!plan) {
+        return res.status(400).json({ error: "Plan is required" });
+      }
+
+      const updated = await storage.updateOrganizationPlan(organizationId, plan);
+      
+      if (!updated) {
+        return res.status(404).json({ error: "Organization not found" });
+      }
+
+      res.json({ success: true, organization: updated });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update organization plan" });
     }
   });
 

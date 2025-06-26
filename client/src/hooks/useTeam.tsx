@@ -17,6 +17,7 @@ interface UseTeamReturn {
   cancelInvitation: (invitationId: number) => Promise<void>;
   updateMemberRole: (userId: number, role: string) => Promise<void>;
   suspendMember: (userId: number, suspend: boolean) => Promise<void>;
+  removeMember: (userId: number) => Promise<void>;
   refetch: () => Promise<void>;
 }
 
@@ -236,6 +237,23 @@ export function useTeam({ organizationId }: UseTeamOptions): UseTeamReturn {
     }
   }, []);
 
+  const removeMember = useCallback(async (userId: number) => {
+    try {
+      const response = await fetch(`/api/team/members/${userId}?organizationId=${organizationId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove team member");
+      }
+
+      // Remove from local state
+      setTeamMembers(prev => prev.filter(member => member.id !== userId));
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : "Failed to remove team member");
+    }
+  }, [organizationId]);
+
   const refetch = useCallback(async () => {
     await fetchData();
   }, [fetchData]);
@@ -256,6 +274,7 @@ export function useTeam({ organizationId }: UseTeamOptions): UseTeamReturn {
     cancelInvitation,
     updateMemberRole,
     suspendMember,
+    removeMember,
     refetch,
   };
 }
