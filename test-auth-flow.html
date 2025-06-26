@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Flow Test</title>
+</head>
+<body>
+    <h1>Authentication Flow Test</h1>
+    
+    <div id="status">Loading...</div>
+    <br>
+    
+    <button onclick="testClerkAuth()">Test Clerk Auth</button>
+    <button onclick="testAPICall()">Test API Call</button>
+    <button onclick="clearAuth()">Clear Auth Data</button>
+    
+    <div id="results"></div>
+
+    <script>
+        function updateStatus(message) {
+            document.getElementById('status').innerHTML = message;
+        }
+        
+        function addResult(message) {
+            const results = document.getElementById('results');
+            results.innerHTML += '<p>' + message + '</p>';
+        }
+        
+        async function testClerkAuth() {
+            addResult('<strong>Testing Clerk Authentication...</strong>');
+            
+            try {
+                // Check if we're on the right domain
+                addResult('Current URL: ' + window.location.href);
+                
+                // Check localStorage for any auth data
+                const authData = {
+                    test_role: localStorage.getItem('test_role'),
+                    clerk_session: localStorage.getItem('__clerk_session'),
+                    all_keys: Object.keys(localStorage)
+                };
+                
+                addResult('LocalStorage auth data: ' + JSON.stringify(authData, null, 2));
+                
+                // Try to make a simple API call
+                const response = await fetch('/api/stats');
+                addResult('Stats API call status: ' + response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult('Stats data: ' + JSON.stringify(data));
+                } else {
+                    const error = await response.text();
+                    addResult('Stats error: ' + error);
+                }
+                
+            } catch (error) {
+                addResult('Auth test error: ' + error.message);
+            }
+        }
+        
+        async function testAPICall() {
+            addResult('<strong>Testing Client API Call...</strong>');
+            
+            try {
+                const response = await fetch('/api/clients');
+                addResult('Clients API status: ' + response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult('Clients data: ' + JSON.stringify(data));
+                } else {
+                    const error = await response.text();
+                    addResult('Clients error: ' + error);
+                }
+                
+            } catch (error) {
+                addResult('API call error: ' + error.message);
+            }
+        }
+        
+        function clearAuth() {
+            localStorage.clear();
+            sessionStorage.clear();
+            addResult('✅ Cleared all auth data');
+        }
+        
+        // Auto-run on load
+        window.addEventListener('load', () => {
+            updateStatus('Ready for testing');
+            testClerkAuth();
+        });
+    </script>
+</body>
+</html>

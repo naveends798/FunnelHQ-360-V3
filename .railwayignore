@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+.env.local
+*.log
+dist
+client/dist
+.vercel
+.next
+coverage
+*.backup

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Frontend Auth</title>
+</head>
+<body>
+    <h1>Frontend Auth Test</h1>
+    <button onclick="testAuth()">Test Auth Token</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAuth() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Test if our auth setup is working
+                console.log('Testing frontend auth setup...');
+                
+                // Simulate what our app does
+                const response = await fetch('/api/clients', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.text();
+                resultDiv.innerHTML = `
+                    <p><strong>Status:</strong> ${response.status}</p>
+                    <p><strong>Response:</strong> ${result}</p>
+                `;
+                
+                console.log('Auth test result:', { status: response.status, result });
+                
+            } catch (error) {
+                console.error('Auth test error:', error);
+                resultDiv.innerHTML = `<p><strong>Error:</strong> ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

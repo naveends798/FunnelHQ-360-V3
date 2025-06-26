@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Development Login Bypass</title>
+</head>
+<body>
+    <h1>Development Mode - Bypass Login</h1>
+    <p>This page helps you bypass the Clerk login for development testing.</p>
+    
+    <div>
+        <h2>Set Demo User Role:</h2>
+        <button onclick="setRole('admin')">Set as Admin</button>
+        <button onclick="setRole('team_member')">Set as Team Member</button>
+        <button onclick="setRole('client')">Set as Client</button>
+    </div>
+    
+    <br>
+    
+    <div>
+        <h2>Navigation:</h2>
+        <button onclick="goToDashboard()">Go to Dashboard</button>
+        <button onclick="goToProjects()">Go to Projects</button>
+        <button onclick="goToClients()">Go to Clients</button>
+    </div>
+    
+    <div id="status"></div>
+
+    <script>
+        function setRole(role) {
+            localStorage.setItem('test_role', role);
+            localStorage.setItem('test_user_name', `Demo ${role.charAt(0).toUpperCase() + role.slice(1)}`);
+            
+            document.getElementById('status').innerHTML = `✅ Set as ${role}. You can now navigate to the app.`;
+        }
+        
+        function goToDashboard() {
+            window.location.href = '/';
+        }
+        
+        function goToProjects() {
+            window.location.href = '/projects';
+        }
+        
+        function goToClients() {
+            window.location.href = '/clients';
+        }
+        
+        // Show current settings
+        window.addEventListener('load', () => {
+            const currentRole = localStorage.getItem('test_role') || 'none';
+            const currentName = localStorage.getItem('test_user_name') || 'none';
+            
+            document.getElementById('status').innerHTML = `
+                <p><strong>Current Settings:</strong></p>
+                <p>Role: ${currentRole}</p>
+                <p>Name: ${currentName}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

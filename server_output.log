@@ -1,0 +1,246 @@
+
+> funnelhq-360@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+2:55:32 PM [express] serving on port 3000
+📝 Creating client with data: {
+  clerkUserId: 'real-user-123',
+  userEmail: 'real@supabase.com',
+  clientFormData: {
+    name: 'Real Supabase Test',
+    email: 'real@supabase.com',
+    notes: 'This should definitely work now'
+  }
+}
+Creating client with data: {
+  name: 'Real Supabase Test',
+  email: 'real@supabase.com',
+  notes: 'This should definitely work now',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'created_at' column of 'clients' in the schema cache"
+}
+2:56:11 PM [express] POST /api/clients 201 in 656ms :: {"name":"Real Supabase Test","email":"real@su…
+📝 Creating client with data: {
+  clerkUserId: 'success-user',
+  userEmail: 'success@test.com',
+  clientFormData: {
+    name: 'SUCCESS Test',
+    email: 'success@test.com',
+    notes: 'Should save to Supabase now'
+  }
+}
+Creating client with data: {
+  name: 'SUCCESS Test',
+  email: 'success@test.com',
+  notes: 'Should save to Supabase now',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'created_at' column of 'clients' in the schema cache"
+}
+2:56:46 PM [express] POST /api/clients 201 in 220ms :: {"name":"SUCCESS Test","email":"success@test.…
+📝 Creating client with data: {
+  clerkUserId: 'final-success',
+  userEmail: 'final@success.com',
+  clientFormData: {
+    name: 'FINAL SUCCESS',
+    email: 'final@success.com',
+    notes: 'This will work with joined_at'
+  }
+}
+Creating client with data: {
+  name: 'FINAL SUCCESS',
+  email: 'final@success.com',
+  notes: 'This will work with joined_at',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'created_at' column of 'clients' in the schema cache"
+}
+2:57:14 PM [express] POST /api/clients 201 in 191ms :: {"name":"FINAL SUCCESS","email":"final@succes…
+📝 Creating client with data: {
+  clerkUserId: 'minimal-user',
+  userEmail: 'minimal@test.com',
+  clientFormData: {
+    name: 'MINIMAL TEST',
+    email: 'minimal@test.com',
+    notes: 'Basic insert only'
+  }
+}
+Creating client with data: {
+  name: 'MINIMAL TEST',
+  email: 'minimal@test.com',
+  notes: 'Basic insert only',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'created_at' column of 'clients' in the schema cache"
+}
+2:57:35 PM [express] POST /api/clients 201 in 224ms :: {"name":"MINIMAL TEST","email":"minimal@test.…
+2:59:16 PM [express] GET /api/clients 200 in 1ms :: [{"name":"Real Supabase Test","email":"real@supa…
+2:59:16 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 582ms :: {"user":{"id":8…
+2:59:28 PM [express] GET /api/support/tickets/1 200 in 3ms :: [{"id":1,"userId":1,"organizationId":1…
+📝 Creating client with data: {
+  clerkUserId: 'cloud-user-123',
+  userEmail: 'cloud@persistent.com',
+  clientFormData: {
+    name: 'CLOUD PERSISTENCE TEST',
+    email: 'cloud@persistent.com',
+    notes: 'This should save to Supabase cloud'
+  }
+}
+Creating client with data: {
+  name: 'CLOUD PERSISTENCE TEST',
+  email: 'cloud@persistent.com',
+  notes: 'This should save to Supabase cloud',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'created_at' column of 'clients' in the schema cache"
+}
+3:02:53 PM [express] POST /api/clients 201 in 509ms :: {"name":"CLOUD PERSISTENCE TEST","email":"clo…
+3:06:24 PM [express] GET /api/supabase/users/naveends798%40gmail.com 200 in 573ms :: {"user":{"id":8…
+3:06:25 PM [express] GET /api/notifications 200 in 1ms :: []
+3:06:25 PM [express] GET /api/notifications/unread-count 200 in 1ms :: {"count":0}
+🔍 Found user roles for org 1 : 3
+🔍 Legacy org users: 0 Role-based users: 3
+🔍 Total unique users for org: 3
+3:06:25 PM [express] GET /api/team/members 200 in 1ms :: [{"id":1,"supabaseId":"00000000-0000-0000-0…
+3:06:25 PM [express] GET /api/clients 200 in 0ms :: [{"name":"Real Supabase Test","email":"real@supa…
+🔍 Found user roles for org 1 : 3
+🔍 Legacy org users: 0 Role-based users: 3
+🔍 Total unique users for org: 3
+3:06:25 PM [express] GET /api/team/members 304 in 1ms :: [{"id":1,"supabaseId":"00000000-0000-0000-0…
+3:06:25 PM [express] GET /api/stats 200 in 1ms :: {"activeProjects":0,"totalClients":5,"monthlyReven…
+3:06:25 PM [express] GET /api/team/invitations 200 in 1ms :: []
+3:06:25 PM [express] GET /api/team/invitations 304 in 0ms :: []
+3:06:25 PM [express] GET /api/projects 200 in 0ms :: []
+3:06:25 PM [express] GET /api/activities 200 in 1ms :: []
+3:06:31 PM [express] DELETE /api/clients/5 204 in 1ms
+3:06:31 PM [express] GET /api/clients 200 in 1ms :: [{"name":"Real Supabase Test","email":"real@supa…
+3:06:33 PM [express] DELETE /api/clients/1 204 in 1ms
+3:06:33 PM [express] GET /api/clients 200 in 1ms :: [{"name":"SUCCESS Test","email":"success@test.co…
+3:06:35 PM [express] DELETE /api/clients/2 204 in 1ms
+3:06:35 PM [express] GET /api/clients 200 in 1ms :: [{"name":"FINAL SUCCESS","email":"final@success.…
+3:06:36 PM [express] DELETE /api/clients/3 204 in 1ms
+3:06:37 PM [express] GET /api/clients 200 in 1ms :: [{"name":"MINIMAL TEST","email":"minimal@test.co…
+3:06:38 PM [express] DELETE /api/clients/4 204 in 1ms
+3:06:38 PM [express] GET /api/clients 200 in 1ms :: []
+📝 Creating client with data: {
+  clerkUserId: 'anonymous',
+  userEmail: 'naveends798@gmail.com',
+  clientFormData: {
+    name: 'Test clinet 1',
+    email: 'naveen@funnelgrowthexpert.com',
+    avatar: '',
+    notes: 'dfsadasdas'
+  }
+}
+Creating client with data: {
+  name: 'Test clinet 1',
+  email: 'naveen@funnelgrowthexpert.com',
+  avatar: '',
+  notes: 'dfsadasdas',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'organization_id' column of 'clients' in the schema cache"
+}
+3:06:52 PM [express] POST /api/clients 201 in 191ms :: {"name":"Test clinet 1","email":"naveen@funne…
+3:06:55 PM [express] GET /api/clients 200 in 1ms :: [{"name":"Test clinet 1","email":"naveen@funnelg…
+📝 Creating client with data: {
+  clerkUserId: 'success-user',
+  userEmail: 'success@supabase.com',
+  clientFormData: {
+    name: 'SUPABASE SUCCESS',
+    email: 'success@supabase.com',
+    notes: 'This should finally work'
+  }
+}
+Creating client with data: {
+  name: 'SUPABASE SUCCESS',
+  email: 'success@supabase.com',
+  notes: 'This should finally work',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'organization_id' column of 'clients' in the schema cache"
+}
+3:08:51 PM [express] POST /api/clients 201 in 575ms :: {"name":"SUPABASE SUCCESS","email":"success@s…
+📝 Creating client with data: {
+  clerkUserId: 'test-success-123',
+  userEmail: 'testsuccess@supabase.com',
+  clientFormData: {
+    name: 'SUPABASE SUCCESS CLIENT',
+    email: 'testsuccess@supabase.com',
+    notes: 'This should save to Supabase cloud'
+  }
+}
+Creating client with data: {
+  name: 'SUPABASE SUCCESS CLIENT',
+  email: 'testsuccess@supabase.com',
+  notes: 'This should save to Supabase cloud',
+  createdBy: 1
+}
+🔄 Attempting to save to Supabase...
+📝 Supabase URL: https://ptlahrhzavhekjvtyfud.supabase.co
+🔑 Supabase Key Length: 219
+❌ Supabase save failed!
+🚨 Supabase error details: {
+  code: 'PGRST204',
+  details: null,
+  hint: null,
+  message: "Could not find the 'organization_id' column of 'clients' in the schema cache"
+}
+3:11:37 PM [express] POST /api/clients 201 in 131ms :: {"name":"SUPABASE SUCCESS CLIENT","email":"te…

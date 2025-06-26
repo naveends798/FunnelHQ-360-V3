@@ -1,0 +1,63 @@
+
+> funnelhq-360@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔗 SupabaseStorage: Connected to production database
+5:11:01 PM [express] serving on port 3000
+Error creating project: {
+  code: '23502',
+  details: 'Failing row contains (2, FINAL SUCCESS PROJECT, Should work now, 13, 9, null, null, 5000.00, null, null, null, null, null, null, null, 9, 2025-06-25 11:41:15.238+00, 2025-06-25 11:41:15.238+00).',
+  hint: null,
+  message: 'null value in column "status" of relation "projects" violates not-null constraint'
+}
+5:11:15 PM [express] POST /api/projects 500 in 190ms :: {"error":"Failed to create project"}
+Error creating project: {
+  code: '23502',
+  details: 'Failing row contains (3, STATUS FIXED PROJECT, Should work with defaults, 13, 9, null, null, 5000.00, null, null, null, null, null, null, null, 9, 2025-06-25 11:41:36.509+00, 2025-06-25 11:41:36.509+00).',
+  hint: null,
+  message: 'null value in column "status" of relation "projects" violates not-null constraint'
+}
+5:11:36 PM [express] POST /api/projects 500 in 363ms :: {"error":"Failed to create project"}
+5:13:16 PM [express] GET /api/supabase/users/naveends798%40gmail.com 200 in 160ms :: {"user":{"id":8…
+5:13:17 PM [express] GET /api/notifications 200 in 1ms :: []
+5:13:17 PM [express] GET /api/notifications/unread-count 200 in 0ms :: {"count":0}
+5:13:17 PM [express] GET /api/team/invitations 200 in 1ms :: []
+5:13:17 PM [express] GET /api/team/invitations 304 in 0ms :: []
+5:13:17 PM [express] GET /api/activities 200 in 0ms :: []
+5:13:17 PM [express] GET /api/clients 200 in 135ms :: [{"id":13,"name":"FIXED CLIENT TEST","email":"…
+5:13:17 PM [express] GET /api/stats 200 in 135ms :: {"activeProjects":1,"totalClients":4,"monthlyRev…
+Error fetching client: {
+  code: '22P02',
+  details: null,
+  hint: null,
+  message: 'invalid input syntax for type integer: "undefined"'
+}
+5:13:17 PM [express] GET /api/projects 500 in 205ms :: {"error":"Failed to fetch projects"}
+5:13:17 PM [express] GET /api/team/members 200 in 226ms :: [{"id":8,"supabase_id":null,"username":nu…
+5:13:17 PM [express] GET /api/team/members 304 in 76ms :: [{"id":8,"supabase_id":null,"username":nul…
+5:14:22 PM [express] GET /api/onboarding-forms 200 in 9ms :: []
+Error fetching client: {
+  code: '22P02',
+  details: null,
+  hint: null,
+  message: 'invalid input syntax for type integer: "undefined"'
+}
+5:14:23 PM [express] GET /api/projects 500 in 740ms :: {"error":"Failed to fetch projects"}
+Error fetching client: {
+  code: '22P02',
+  details: null,
+  hint: null,
+  message: 'invalid input syntax for type integer: "undefined"'
+}
+5:14:24 PM [express] GET /api/projects 500 in 171ms :: {"error":"Failed to fetch projects"}
+5:14:42 PM [express] POST /api/onboarding-forms 201 in 4ms :: {"ownerId":1,"organizationId":1,"proje…
+5:14:42 PM [express] GET /api/onboarding-forms 304 in 0ms :: []
+5:14:46 PM [express] GET /api/onboarding-forms 304 in 1ms :: []
+5:14:46 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 133ms :: {"user":{"id":8…
+Error fetching client: {
+  code: '22P02',
+  details: null,
+  hint: null,
+  message: 'invalid input syntax for type integer: "undefined"'
+}
+5:14:46 PM [express] GET /api/projects 500 in 210ms :: {"error":"Failed to fetch projects"}
