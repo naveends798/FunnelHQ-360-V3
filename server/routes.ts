@@ -20,7 +20,7 @@ import organizationExportRoutes from "./api/organization-export";
 import organizationRecoveryRoutes from "./api/organization-recovery";
 import usageMonitoringRoutes from "./api/usage-monitoring";
 import planEnforcementRoutes, { enforcePlanLimits } from "./api/plan-enforcement";
-import { authenticateUser, requireAdmin, requireTeamAccess, requireOrganizationAccess } from "./api/auth-middleware";
+import { authenticateUser, requireAdmin, requireTeamAccess, requireOrganizationAccess, requireProjectAccess } from "./api/auth-middleware";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -1362,9 +1362,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/team/members", async (req, res) => {
     try {
       const organizationId = req.query.organizationId ? parseInt(req.query.organizationId as string) : 1;
+      console.log(`🔄 Fetching team members for organization: ${organizationId}`);
       const members = await storage.getTeamMembers(organizationId);
+      console.log(`✅ Returning ${members.length} team members:`, members.map(m => `${m.id}:${m.email}:${m.status}`));
       res.json(members);
     } catch (error) {
+      console.error(`❌ Error fetching team members:`, error);
       res.status(500).json({ error: "Failed to fetch team members" });
     }
   });
@@ -1610,17 +1613,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Test endpoint to verify route works
+  app.get("/api/team/members/:id/status", async (req, res) => {
+    console.log(`🔄 TEST: GET /api/team/members/:id/status called`);
+    res.json({ message: "Status endpoint is accessible", userId: req.params.id });
+  });
+
+  app.patch("/api/team/members/:id/status", async (req, res) => {
+    try {
+      console.log(`🔄 API: PATCH /api/team/members/:id/status called`);
+      console.log(`📋 Request params:`, req.params);
+      console.log(`📋 Request body:`, req.body);
+      
+      const userId = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      console.log(`🔄 Parsed userId: ${userId}, status: ${status}`);
+      
+      if (isNaN(userId)) {
+        console.log(`❌ Invalid userId: ${req.params.id}`);
+        return res.status(400).json({ error: "Valid user ID is required" });
+      }
+      
+      if (!status || !['active', 'suspended', 'pending', 'inactive'].includes(status)) {
+        console.log(`❌ Invalid status: ${status}`);
+        return res.status(400).json({ error: "Valid status is required (active, suspended, pending, inactive)" });
+      }
+      
+      console.log(`🔄 Calling storage.updateUserStatus(${userId}, "${status}")`);
+      const success = await storage.updateUserStatus(userId, status);
+      
+      if (!success) {
+        console.log(`❌ storage.updateUserStatus returned false for user ${userId}`);
+        return res.status(404).json({ error: "User not found or update failed" });
+      }
+      
+      console.log(`✅ Successfully updated user ${userId} status to: ${status}`);
+      return res.status(200).json({ success: true, status: status });
+    } catch (error) {
+      console.error(`❌ Exception in status update API:`, error);
+      console.error(`❌ Error stack:`, error instanceof Error ? error.stack : 'No stack trace');
+      return res.status(500).json({ error: "Failed to update user status", details: error instanceof Error ? error.message : 'Unknown error' });
+    }
+  });
+
   app.patch("/api/team/members/:id/suspend", async (req, res) => {
     try {
-      const userId = parseInt(req.params.id);
-      const { suspend = true } = req.body;
+      console.log(`🔄 Suspend API called for user ${req.params.id}`);
+      console.log(`📋 Request body:`, req.body);
       
-      const success = await storage.suspendUser(userId, suspend);
-      if (!success) {
-        return res.status(404).json({ error: "User not found" });
+      const userId = parseInt(req.params.id);
+      const { suspend = true, status } = req.body;
+      
+      // If status is provided, use the new updateUserStatus method
+      if (status) {
+        console.log(`🔄 Using status field: ${status}`);
+        const success = await storage.updateUserStatus(userId, status);
+        if (!success) {
+          console.log(`❌ Failed to update user ${userId} to status ${status}`);
+          return res.status(404).json({ error: "User not found or status update failed" });
+        }
+        console.log(`✅ User ${userId} status updated to: ${status}`);
+        return res.json({ status: status, success: true });
+      } else {
+        // Use original suspend logic
+        console.log(`🔄 Using suspend field: ${suspend}`);
+        const success = await storage.suspendUser(userId, suspend);
+        if (!success) {
+          console.log(`❌ Failed to suspend/unsuspend user ${userId}`);
+          return res.status(404).json({ error: "User not found" });
+        }
+        console.log(`✅ User ${userId} suspended: ${suspend}`);
+        return res.json({ suspended: suspend, success: true });
       }
-      res.json({ suspended: suspend });
     } catch (error) {
+      console.error(`❌ Error in suspend endpoint:`, error);
       res.status(500).json({ error: "Failed to update user status" });
     }
   });

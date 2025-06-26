@@ -16,6 +16,7 @@ interface UseTeamReturn {
   resendInvitation: (invitationId: number) => Promise<void>;
   cancelInvitation: (invitationId: number) => Promise<void>;
   updateMemberRole: (userId: number, role: string) => Promise<void>;
+  updateMemberStatus: (userId: number, status: string) => Promise<void>;
   suspendMember: (userId: number, suspend: boolean) => Promise<void>;
   removeMember: (userId: number) => Promise<void>;
   refetch: () => Promise<void>;
@@ -208,6 +209,52 @@ export function useTeam({ organizationId }: UseTeamOptions): UseTeamReturn {
     }
   }, [organizationId]);
 
+  const updateMemberStatus = useCallback(async (userId: number, status: string) => {
+    try {
+      console.log(`🔄 Frontend: Updating user ${userId} status to: ${status}`);
+      
+      // Use the enhanced suspend endpoint that now supports all status types
+      const response = await fetch(`/api/team/members/${userId}/suspend`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: status,  // Send status field instead of suspend field
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`❌ Status API Error: ${response.status} - ${errorText}`);
+        
+        // If it's HTML (server error), show a more helpful message
+        if (errorText.includes('<!DOCTYPE') || errorText.includes('<html>')) {
+          throw new Error(`Server error (${response.status}): The API endpoint returned an HTML error page. Server may be down.`);
+        } else {
+          throw new Error(`API Error (${response.status}): ${errorText}`);
+        }
+      }
+
+      const result = await response.json();
+      console.log(`✅ Frontend: Status API response:`, result);
+
+      // Update local state
+      setTeamMembers(prev => {
+        const updated = prev.map(member =>
+          member.id === userId
+            ? { ...member, status }
+            : member
+        );
+        console.log(`✅ Frontend: Updated local state for user ${userId} to status: ${status}`);
+        return updated;
+      });
+    } catch (err) {
+      console.error(`❌ Frontend: Error updating status:`, err);
+      throw new Error(err instanceof Error ? err.message : "Failed to update member status");
+    }
+  }, []);
+
   const suspendMember = useCallback(async (userId: number, suspend: boolean) => {
     try {
       const response = await fetch(`/api/team/members/${userId}/suspend`, {
@@ -273,6 +320,7 @@ export function useTeam({ organizationId }: UseTeamOptions): UseTeamReturn {
     resendInvitation,
     cancelInvitation,
     updateMemberRole,
+    updateMemberStatus,
     suspendMember,
     removeMember,
     refetch,

@@ -79,6 +79,8 @@ const getStatusColor = (status: string) => {
       return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
     case "suspended":
       return "bg-red-500/20 text-red-400 border-red-500/30";
+    case "inactive":
+      return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     default:
       return "bg-slate-500/20 text-slate-400 border-slate-500/30";
   }
@@ -161,6 +163,7 @@ export default function TeamPage() {
     resendInvitation,
     cancelInvitation,
     updateMemberRole,
+    updateMemberStatus,
     suspendMember,
     removeMember,
     refetch
@@ -324,20 +327,33 @@ export default function TeamPage() {
   const handleSaveChanges = async () => {
     if (!selectedMember) return;
 
+    console.log(`🔄 Save Changes: Starting save for user ${selectedMember.id}`);
+    console.log(`📊 Current member:`, { id: selectedMember.id, role: selectedMember.role, status: selectedMember.status });
+    console.log(`📝 Form values:`, { editRole, editStatus });
+
     try {
+      let hasChanges = false;
+
       // Update role if changed
       if (editRole !== selectedMember.role) {
+        console.log(`🔄 Role changed: ${selectedMember.role} → ${editRole}`);
         await updateMemberRole(selectedMember.id, editRole);
+        hasChanges = true;
       }
 
       // Update status if changed
       if (editStatus !== selectedMember.status) {
-        const shouldSuspend = editStatus === "suspended";
-        await suspendMember(selectedMember.id, shouldSuspend);
+        console.log(`🔄 Status changed: ${selectedMember.status} → ${editStatus}`);
+        await updateMemberStatus(selectedMember.id, editStatus);
+        hasChanges = true;
       }
 
       // TODO: Add name and email update functionality
       // TODO: Add avatar update functionality
+
+      // Let optimistic updates handle the UI changes
+      // We'll refetch manually later if needed
+      console.log(`📊 Save completed. hasChanges: ${hasChanges}`);
 
       setIsEditModalOpen(false);
       toast({
@@ -660,6 +676,7 @@ export default function TeamPage() {
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="suspended">Suspended</SelectItem>
+                <SelectItem value="inactive">Inactive</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -955,6 +972,7 @@ export default function TeamPage() {
                       <SelectItem value="active">Active</SelectItem>
                       <SelectItem value="suspended">Suspended</SelectItem>
                       <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="inactive">Inactive</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

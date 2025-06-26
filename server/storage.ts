@@ -132,6 +132,7 @@ export interface IStorage {
   cancelTeamInvitation(id: number): Promise<boolean>;
   updateUserRole(userId: number, organizationId: number, role: string): Promise<UserRole | undefined>;
   suspendUser(userId: number, suspend: boolean): Promise<boolean>;
+  updateUserStatus(userId: number, status: string): Promise<boolean>;
   removeUserFromOrganization(userId: number, organizationId: number): Promise<boolean>;
 
   // Enhanced Invitation System
@@ -1710,6 +1711,17 @@ export class MemStorage implements IStorage {
     if (!user) return false;
 
     user.isActive = !suspend;
+    user.status = suspend ? 'suspended' : 'active';
+    this.users.set(userId, user);
+    return true;
+  }
+
+  async updateUserStatus(userId: number, status: string): Promise<boolean> {
+    const user = this.users.get(userId);
+    if (!user) return false;
+
+    user.status = status;
+    user.isActive = status === 'active';
     this.users.set(userId, user);
     return true;
   }

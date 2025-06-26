@@ -177,13 +177,19 @@ export default function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header Section */}
           <div className="p-3">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 mb-4">
-              <FunnelHQ360Logo size={44} />
-              <div>
-                <h1 className="text-xl font-bold text-white dark:text-white tracking-tight">
-                  FunnelHQ 360
-                </h1>
+            {/* Logo and Notifications */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <FunnelHQ360Logo size={44} />
+                <div>
+                  <h1 className="text-xl font-bold text-white dark:text-white tracking-tight">
+                    FunnelHQ 360
+                  </h1>
+                </div>
+              </div>
+              {/* Notification Icon */}
+              <div className="flex-shrink-0">
+                <NotificationCenter />
               </div>
             </div>
 

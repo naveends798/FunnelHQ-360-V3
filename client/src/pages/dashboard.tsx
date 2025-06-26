@@ -8,7 +8,6 @@ import ProjectFilters from "@/components/project-filters";
 import ActivityFeed from "@/components/activity-feed";
 import QuickActions from "@/components/quick-actions";
 // import NotificationTest from "@/components/notification-test";
-import NotificationCenter from "@/components/notification-center";
 import BetaBanner from "@/components/beta-banner";
 import { TrialBanner } from "@/components/trial-banner";
 import { RevenueGoalRing } from "@/components/ui/progress-ring";
@@ -152,9 +151,6 @@ export default function Dashboard() {
               <h1 className="text-3xl font-bold text-white">Dashboard</h1>
             </div>
             <p className="text-slate-400">Manage your clients and track project progress in real-time</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <NotificationCenter />
           </div>
         </header>
 
