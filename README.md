@@ -111,7 +111,7 @@ Enterprise-level backup and recovery capabilities:
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/your-username/FunnelHQ-360-V3.git
+git clone https://github.com/naveends798/FunnelHQ-360-V3.git
 cd FunnelHQ-360-V3
 ```
 
@@ -433,7 +433,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For support and questions:
 - 📧 Email: support@funnelhq.com
 - 📖 Documentation: [docs.funnelhq.com](https://docs.funnelhq.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/FunnelHQ-360-V3/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/naveends798/FunnelHQ-360-V3/issues)
 
 ---
 
