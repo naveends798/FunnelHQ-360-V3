@@ -20,6 +20,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useAuth as useClerkAuth } from "@clerk/clerk-react";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface CreateClientModalProps {
   open: boolean;
@@ -95,13 +96,7 @@ export default function CreateClientModal({ open, onOpenChange }: CreateClientMo
       
       console.log("Submitting client data:", clientData);
       
-      const response = await fetch("/api/clients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(clientData),
-      });
+      const response = await apiRequest("POST", "/api/clients", clientData);
 
       if (response.ok) {
         const newClient = await response.json();
@@ -113,8 +108,16 @@ export default function CreateClientModal({ open, onOpenChange }: CreateClientMo
           const avatarFormData = new FormData();
           avatarFormData.append('avatar', formData.avatarFile);
           
+          // Get auth token for file upload
+          const token = await clerkUser?.getToken();
+          const headers: Record<string, string> = {};
+          if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+          }
+          
           const avatarResponse = await fetch(`/api/clients/${newClient.id}/avatar`, {
             method: "POST",
+            headers,
             body: avatarFormData,
           });
           

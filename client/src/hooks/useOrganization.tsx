@@ -12,17 +12,18 @@ export function useOrganization() {
   } = useOrganizationList();
   const [, setLocation] = useLocation();
 
-  // Auto-create organization for new users
+  // Auto-activate organization for users (webhook should have created it)
   useEffect(() => {
     if (!orgLoaded || !listLoaded) return;
     
-    // If user has no organizations, create one
-    if (organizationList?.length === 0) {
-      handleCreateFirstOrganization();
-    }
     // If user has organizations but none active, set the first one
-    else if (!organization && organizationList && organizationList.length > 0) {
+    if (!organization && organizationList && organizationList.length > 0) {
+      console.log('🔄 Setting active organization:', organizationList[0].organization.name);
       setActive({ organization: organizationList[0].organization.id });
+    }
+    // Log if user has no organizations (let the app routing handle onboarding)
+    else if (organizationList?.length === 0) {
+      console.log('⚠️ User has no organizations. Onboarding will be shown.');
     }
   }, [orgLoaded, listLoaded, organization, organizationList]);
 

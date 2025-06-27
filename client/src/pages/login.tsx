@@ -452,7 +452,10 @@ export default function LoginPage() {
                   <>
                     Don't have an account?{" "}
                     <button
-                      onClick={() => setLocation("/signup")}
+                      onClick={() => {
+                        const signupUrl = selectedRole ? `/signup?role=${selectedRole}` : "/signup";
+                        setLocation(signupUrl);
+                      }}
                       className="text-blue-400 hover:text-blue-300 underline"
                     >
                       Sign up here

@@ -948,6 +948,28 @@ export const BILLING_PLANS = {
       collaborators: -1, // unlimited
       storage: 100 * 1024 * 1024 * 1024 // 100GB in bytes
     }
+  },
+  pro_trial: {
+    id: 'pro_trial',
+    name: 'Pro Trial',
+    price: 0,
+    yearlyPrice: 0,
+    interval: 'month',
+    features: [
+      '14-day free trial',
+      'All Pro features included',
+      'Unlimited projects',
+      'Unlimited collaborators',
+      'Advanced team collaboration',
+      'Priority support',
+      '100GB storage',
+      'Standard reporting'
+    ],
+    limits: {
+      projects: -1, // unlimited
+      collaborators: -1, // unlimited
+      storage: 100 * 1024 * 1024 * 1024 // 100GB in bytes
+    }
   }
 } as const;
 

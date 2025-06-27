@@ -10,6 +10,7 @@ import { handleClerkWebhook } from "./api/clerk-webhooks";
 // import { testWebhookEndpoint, simulateClerkWebhook } from "./api/test-webhook";
 import { createOrUpdateUser, getUserByEmail, updateUser, deleteUser, hardDeleteUser, hardDeleteUserByClerkId, getUserUsage, expireTrialUsers } from "./api/supabase-users";
 import { createOrUpdateOrganization, createOrganizationMembership, createOrganizationInvitation, getOrganizationByClerkId, updateInvitationStatus } from "./api/supabase-organizations";
+import { createOrganizationBackend } from "./api/create-organization-backend";
 import { sendClientProjectAssignmentEmail, sendTeamProjectAssignmentEmail, sendTestEmail } from "./api/email-service";
 import invitationRoutes from "./api/invitations";
 import clientPortalRoutes from "./api/client-portal-routes";
@@ -166,6 +167,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/supabase/organizations/memberships", createOrganizationMembership);
   app.post("/api/supabase/organizations/invitations", createOrganizationInvitation);
   app.put("/api/supabase/organizations/invitations/:invitationId", updateInvitationStatus);
+  app.post("/api/create-organization", createOrganizationBackend);
 
   // Email notification endpoints
   app.post("/api/email/client-project-assignment", sendClientProjectAssignmentEmail);
@@ -1137,10 +1139,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const organizationId = parseInt(req.organizationId);
       
       console.log('📝 Creating client with data:', req.body);
+      console.log('📝 Clerk user ID:', req.userId);
+      
+      // Look up the numeric user ID from Clerk user ID
+      const user = await storage.getUserByClerkId(req.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
       
       const clientData = insertClientSchema.parse({
         ...req.body,
-        createdBy: parseInt(req.userId), // Use authenticated user ID
+        createdBy: user.id, // Use numeric user ID
         organizationId: organizationId, // Use user's organization
       });
       

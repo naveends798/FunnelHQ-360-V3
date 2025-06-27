@@ -17,13 +17,18 @@ export const enforcePlanLimits = (resourceType: 'projects' | 'team_members' | 's
   return async (req: any, res: any, next: any) => {
     try {
       const organizationId = parseInt(req.organizationId);
+      console.log(`🚀 enforcePlanLimits called for ${resourceType}, orgId: ${organizationId}, req.organizationId: ${req.organizationId}`);
       
       if (!organizationId) {
+        console.log(`❌ enforcePlanLimits: No organizationId - returning 400`);
         return res.status(400).json({ error: 'Organization ID required' });
       }
 
+      console.log(`🔍 enforcePlanLimits: Getting organization ${organizationId}`);
       const org = await storage.getOrganization(organizationId);
+      console.log(`🔍 enforcePlanLimits: Got organization result:`, org);
       if (!org) {
+        console.log(`❌ enforcePlanLimits: Organization ${organizationId} not found - returning 404`);
         return res.status(404).json({ error: 'Organization not found' });
       }
 

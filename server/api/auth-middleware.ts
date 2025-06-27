@@ -39,13 +39,13 @@ export const authenticateUser = async (req: AuthenticatedRequest, res: Response,
     const sessionToken = authHeader.substring(7);
     console.log('🎫 Auth middleware - Token length:', sessionToken.length);
     
-    // Verify the session token with Clerk
-    const session = await clerkClient.sessions.verifySession(sessionToken);
+    // Verify the JWT token with Clerk (using newer networkless verification)
+    const payload = await clerkClient.verifyToken(sessionToken);
 
-    console.log('✅ Auth middleware - Session verified:', { userId: session.userId, status: session.status });
+    console.log('✅ Auth middleware - Token verified:', { userId: payload.sub });
 
-    if (!session || !session.userId) {
-      console.log('❌ Auth middleware - Invalid session');
+    if (!payload || !payload.sub) {
+      console.log('❌ Auth middleware - Invalid token payload');
       return res.status(401).json({ error: 'Invalid session token' });
     }
 
@@ -63,7 +63,7 @@ export const authenticateUser = async (req: AuthenticatedRequest, res: Response,
           plan
         )
       `)
-      .eq('clerk_user_id', session.userId)
+      .eq('clerk_user_id', payload.sub)
       .eq('is_active', true)
       .single();
 
@@ -74,18 +74,21 @@ export const authenticateUser = async (req: AuthenticatedRequest, res: Response,
 
     if (!membership) {
       console.log('❌ Auth middleware - User has no active organization membership');
-      return res.status(403).json({ 
-        error: 'No active organization membership found',
-        hint: 'User must be a member of an organization to access this resource'
+      
+      // Provide more helpful error message 
+      return res.status(401).json({ 
+        error: 'Authentication failed',
+        details: 'No active organization membership',
+        hint: 'User needs to be added to an organization'
       });
     }
 
-    req.userId = session.userId;
+    req.userId = payload.sub;
     req.userRole = membership.role;
     req.organizationId = membership.organization_id.toString();
 
     console.log('👤 Auth middleware - User authenticated:', { 
-      userId: session.userId, 
+      userId: payload.sub, 
       role: req.userRole,
       orgId: req.organizationId,
       orgName: membership.organizations.name,

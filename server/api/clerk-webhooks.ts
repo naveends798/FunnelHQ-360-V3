@@ -214,25 +214,38 @@ async function handleUserCreated(evt: WebhookEvent) {
           ? `${userData.name}'s Organization`
           : `${email.split('@')[0]}'s Organization`;
         
-        // Generate a unique Clerk organization ID for internal tracking
-        const autoClerkOrgId = `auto_org_${id}_${Date.now()}`;
-        
-        // Create organization
-        const orgData = {
-          clerkOrgId: autoClerkOrgId,
+        // Create organization in Clerk first
+        const { clerkClient } = require('@clerk/clerk-sdk-node');
+        const clerkOrg = await clerkClient.organizations.createOrganization({
           name: orgName,
           slug: orgName.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
           createdBy: id,
-          plan: 'pro_trial'
+          publicMetadata: {
+            plan: 'pro_trial',
+            trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+            createdAt: new Date().toISOString()
+          }
+        });
+        
+        console.log('✅ Created Clerk organization:', clerkOrg.id);
+        
+        // Create organization in database
+        const orgData = {
+          clerkOrgId: clerkOrg.id,
+          name: orgName,
+          slug: clerkOrg.slug,
+          createdBy: id,
+          plan: 'pro_trial',
+          trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString()
         };
 
-        const orgResponse = await fetch('http://localhost:3000/api/supabase/organizations', {
+        const apiBaseUrl = process.env.API_BASE_URL || 'http://localhost:3000';
+        const orgResponse = await fetch(`${apiBaseUrl}/api/supabase/organizations`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(orgData),
-          timeout: 10000
+          body: JSON.stringify(orgData)
         });
 
         if (!orgResponse.ok) {
@@ -250,13 +263,12 @@ async function handleUserCreated(evt: WebhookEvent) {
           role: 'admin'
         };
 
-        const membershipResponse = await fetch('http://localhost:3000/api/supabase/organizations/memberships', {
+        const membershipResponse = await fetch(`${apiBaseUrl}/api/supabase/organizations/memberships`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(membershipData),
-          timeout: 10000
+          body: JSON.stringify(membershipData)
         });
 
         if (!membershipResponse.ok) {
@@ -266,6 +278,15 @@ async function handleUserCreated(evt: WebhookEvent) {
 
         const membershipResult = await membershipResponse.json();
         console.log('✅ Created organization membership for admin user');
+
+        // Add user to Clerk organization as admin
+        await clerkClient.organizations.createOrganizationMembership({
+          organizationId: clerkOrg.id,
+          userId: id,
+          role: 'org:admin'
+        });
+        
+        console.log('✅ Added user to Clerk organization as admin');
 
         return { user: result, organization: orgResult.organization, membership: membershipResult.membership };
 

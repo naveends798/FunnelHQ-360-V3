@@ -1,0 +1,208 @@
+
+> funnelhq-360@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔗 SupabaseStorage: Connected to production database
+12:23:28 PM [express] serving on port 3000
+🏢 Creating organization via backend API: {
+  name: 'Final Test Organization',
+  userId: 'user_2z52Qbf8nhCuOcljaNc696UzieK'
+}
+✅ Organization created successfully: org_2z53h5zvE5HwJubYz85cQkP4LWG
+✅ User automatically added as admin to organization
+Created organization: Final Test Organization
+12:23:43 PM [express] POST /api/supabase/organizations 200 in 482ms :: {"organization":{"id":6,"clerk…
+✅ Organization created in Supabase: Final Test Organization
+Created organization membership: {
+  id: 5,
+  organization_id: 6,
+  clerk_user_id: 'user_2z52Qbf8nhCuOcljaNc696UzieK',
+  role: 'admin',
+  permissions: [],
+  joined_at: '2025-06-27T06:53:43.273107+00:00',
+  is_active: true
+}
+12:23:43 PM [express] POST /api/supabase/organizations/memberships 200 in 179ms :: {"membership":{"id…
+✅ Organization membership created in Supabase
+12:23:43 PM [express] POST /api/create-organization 200 in 1554ms :: {"success":true,"organization":{…
+12:24:19 PM [express] GET /api/notifications 304 in 11ms :: []
+12:24:19 PM [express] GET /api/notifications/unread-count 304 in 4ms :: {"count":0}
+12:25:19 PM [express] GET /api/notifications 304 in 5ms :: []
+12:25:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+12:26:03 PM [express] GET /api/notifications 304 in 2ms :: []
+12:26:03 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+12:26:20 PM [express] GET /api/notifications 304 in 1ms :: []
+12:26:20 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+12:26:50 PM [express] GET /api/notifications 304 in 1ms :: []
+12:26:50 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+12:27:51 PM [express] GET /api/notifications 304 in 7ms :: []
+12:27:51 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+12:28:52 PM [express] GET /api/notifications 304 in 1ms :: []
+12:28:52 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+12:29:17 PM [express] GET /api/notifications 304 in 1ms :: []
+12:29:17 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+12:29:17 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+12:29:17 PM [express] GET /api/team/invitations 304 in 0ms :: []
+12:29:17 PM [express] GET /api/activities 304 in 0ms :: []
+12:29:17 PM [express] GET /api/team/invitations 304 in 1ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 781
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+12:29:18 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 200 in 495ms :: {"user":{"id"…
+12:29:18 PM [express] GET /api/stats 304 in 488ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 43 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '43:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+12:29:18 PM [express] GET /api/team/members 200 in 497ms :: [{"id":43,"supabase_id":null,"username":n…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+12:29:18 PM [express] GET /api/notifications 200 in 0ms :: []
+12:29:18 PM [express] GET /api/notifications/unread-count 200 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+12:29:18 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+📋 User 43 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '43:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+12:29:18 PM [express] GET /api/team/members 304 in 165ms :: [{"id":43,"supabase_id":null,"username":n…
+❌ Authentication error: _ClerkAPIResponseError: Gone
+    at SessionAPI.request (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/node_modules/@clerk/backend/src/api/request.ts:63:21)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:43:21) {
+  toString: [Function (anonymous)],
+  status: 410,
+  clerkTraceId: '71c86bb2e7bee56088b455a7b234199e',
+  clerkError: true,
+  errors: [
+    {
+      code: 'operation_deprecated',
+      message: 'endpoint is deprecated and pending removal',
+      longMessage: 'This endpoint is deprecated and will be removed in future versions. We strongly recommend switching to networkless verification using short-lived session tokens, which is implemented transparently in all recent SDK versions (e.g. NodeJS SDK https://clerk.com/docs/backend-requests/handling/nodejs#clerk-express-require-auth). For more details on how networkless verification works, refer to our Session Tokens documentation https://clerk.com/docs/backend-requests/resources/session-tokens.',
+      meta: [Object]
+    }
+  ]
+}
+Auth error details: {
+  message: 'Gone',
+  name: 'Error',
+  stack: 'Error: Gone\n' +
+    '    at SessionAPI.request (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/node_modules/@clerk/backend/src/api/request.ts:63:21)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n' +
+    '    at async authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:43:21)'
+}
+12:29:18 PM [express] GET /api/clients 401 in 836ms :: {"error":"Authentication failed","details":"Go…
+12:29:19 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 248ms :: {"user":{"id"…
+12:29:22 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 85ms :: {"user":{"id":…
+12:29:29 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 134ms :: {"user":{"id"…
+12:29:32 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 200 in 71ms :: {"user":{"id":…
+12:29:39 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 167ms :: {"user":{"id"…
+12:31:48 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:31:56 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:36:55 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 173ms :: {"user":{"id"…
+12:36:57 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 105ms :: {"user":{"id"…
+12:40:56 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:15 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:28 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:28 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:37 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:47 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:41:55 PM [vite] hmr update /src/pages/signup.tsx, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:42:47 PM [vite] hmr update /src/App.tsx?v=lWtefVZakm9dToNERNMhe, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:43:04 PM [vite] hmr update /src/App.tsx?v=lWtefVZakm9dToNERNMhe, /src/index.css?v=lWtefVZakm9dToNERNMhe
+12:43:22 PM [vite] hmr update /src/App.tsx?v=lWtefVZakm9dToNERNMhe, /src/index.css?v=lWtefVZakm9dToNERNMhe

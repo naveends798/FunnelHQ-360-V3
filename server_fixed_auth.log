@@ -1,0 +1,347 @@
+
+> funnelhq-360@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔗 SupabaseStorage: Connected to production database
+1:32:25 PM [express] serving on port 3000
+1:33:19 PM [express] GET /api/notifications 304 in 16ms :: []
+1:33:19 PM [express] GET /api/notifications/unread-count 304 in 5ms :: {"count":0}
+1:34:19 PM [express] GET /api/notifications 304 in 2ms :: []
+1:34:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:35:19 PM [express] GET /api/notifications 304 in 2ms :: []
+1:35:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:36:19 PM [express] GET /api/notifications 304 in 2ms :: []
+1:36:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:37:19 PM [express] GET /api/notifications 304 in 6ms :: []
+1:37:19 PM [express] GET /api/notifications/unread-count 304 in 3ms :: {"count":0}
+1:38:19 PM [express] GET /api/notifications 304 in 5ms :: []
+1:38:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:39:19 PM [express] GET /api/notifications 304 in 2ms :: []
+1:39:19 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+1:40:19 PM [express] GET /api/notifications 304 in 4ms :: []
+1:40:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:41:19 PM [express] GET /api/notifications 304 in 9ms :: []
+1:41:19 PM [express] GET /api/notifications/unread-count 304 in 5ms :: {"count":0}
+1:42:19 PM [express] GET /api/notifications 304 in 15ms :: []
+1:42:19 PM [express] GET /api/notifications/unread-count 304 in 3ms :: {"count":0}
+1:43:19 PM [express] GET /api/notifications 304 in 5ms :: []
+1:43:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:44:19 PM [express] GET /api/notifications 304 in 12ms :: []
+1:44:19 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+1:45:19 PM [express] GET /api/notifications 304 in 48ms :: []
+1:45:19 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+1:46:19 PM [express] GET /api/notifications 304 in 9ms :: []
+1:46:19 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:46:46 PM [express] GET /api/notifications 304 in 2ms :: []
+1:46:46 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:47:56 PM [express] GET /api/notifications 304 in 2ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+1:47:56 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+1:47:56 PM [express] GET /api/team/invitations 304 in 4ms :: []
+1:47:56 PM [express] GET /api/activities 304 in 12ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+1:47:56 PM [express] GET /api/projects 401 in 3ms :: {"error":"Missing or invalid authorization head…
+1:47:56 PM [express] GET /api/notifications 304 in 0ms :: []
+1:47:56 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+1:47:56 PM [express] GET /api/team/invitations 304 in 1ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+1:47:56 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 15 team members for organization 1
+✅ Returning 15 team members: [
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+1:47:57 PM [express] GET /api/team/members 200 in 488ms :: [{"id":34,"supabase_id":null,"username":"…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+1:47:57 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 404 in 456ms :: {"error":"Use…
+1:47:57 PM [express] GET /api/stats 304 in 551ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 15 team members for organization 1
+✅ Returning 15 team members: [
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+1:47:57 PM [express] GET /api/team/members 304 in 163ms :: [{"id":34,"supabase_id":null,"username":"…
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+❌ Auth middleware - User has no active organization membership
+1:47:57 PM [express] GET /api/clients 401 in 1098ms :: {"error":"Authentication failed","details":"N…
+🏢 Creating organization via backend API: {
+  name: "vicy test new vickyenwsdsadas's Organization",
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs'
+}
+✅ Organization created successfully: org_2z5DwxHCEcPUlO0g6ZwdnK8tWp3
+✅ User automatically added as admin to organization
+Created organization: vicy test new vickyenwsdsadas's Organization
+1:48:03 PM [express] POST /api/supabase/organizations 200 in 217ms :: {"organization":{"id":9,"clerk…
+✅ Organization created in Supabase: vicy test new vickyenwsdsadas's Organization
+Created organization membership: {
+  id: 8,
+  organization_id: 9,
+  clerk_user_id: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  permissions: [],
+  joined_at: '2025-06-27T08:18:03.479516+00:00',
+  is_active: true
+}
+1:48:03 PM [express] POST /api/supabase/organizations/memberships 200 in 245ms :: {"membership":{"id…
+✅ Organization membership created in Supabase
+1:48:03 PM [express] POST /api/create-organization 200 in 887ms :: {"success":true,"organization":{"…
+1:48:05 PM [express] GET /api/notifications 304 in 1ms :: []
+1:48:05 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+1:48:05 PM [express] GET /api/team/invitations 304 in 0ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+1:48:05 PM [express] GET /api/team/invitations 304 in 0ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+1:48:05 PM [express] GET /api/projects 401 in 0ms :: {"error":"Missing or invalid authorization head…
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+1:48:05 PM [express] GET /api/activities 304 in 0ms :: []
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+1:48:05 PM [express] GET /api/team/members 200 in 88ms :: [{"id":46,"supabase_id":null,"username":nu…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+❌ Authentication error: ReferenceError: session is not defined
+    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Auth error details: {
+  message: 'session is not defined',
+  name: 'ReferenceError',
+  stack: 'ReferenceError: session is not defined\n' +
+    '    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)'
+}
+1:48:05 PM [express] GET /api/clients 401 in 145ms :: {"error":"Authentication failed","details":"se…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+1:48:05 PM [express] GET /api/team/members 304 in 74ms :: [{"id":46,"supabase_id":null,"username":nu…
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+1:48:05 PM [express] GET /api/stats 304 in 198ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+1:48:08 PM [express] GET /api/notifications 304 in 0ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+1:48:08 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+❌ Authentication error: ReferenceError: session is not defined
+    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Auth error details: {
+  message: 'session is not defined',
+  name: 'ReferenceError',
+  stack: 'ReferenceError: session is not defined\n' +
+    '    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)'
+}
+1:48:08 PM [express] GET /api/clients 401 in 95ms :: {"error":"Authentication failed","details":"ses…
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+❌ Authentication error: ReferenceError: session is not defined
+    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+Auth error details: {
+  message: 'session is not defined',
+  name: 'ReferenceError',
+  stack: 'ReferenceError: session is not defined\n' +
+    '    at authenticateUser (/Users/home/Desktop/FunnelHQ 360 upDATES/FunnelHQ-360-V2-main/server/api/auth-middleware.ts:91:15)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)'
+}
+1:48:20 PM [express] POST /api/clients 401 in 123ms :: {"error":"Authentication failed","details":"s…
+1:48:38 PM [express] GET /api/notifications 304 in 1ms :: []
+1:48:38 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:49:08 PM [express] GET /api/notifications 304 in 0ms :: []
+1:49:08 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+1:50:04 PM [express] GET /api/notifications 304 in 1ms :: []
+1:50:04 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+1:50:44 PM [express] GET /api/notifications 304 in 1ms :: []
+1:50:44 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}

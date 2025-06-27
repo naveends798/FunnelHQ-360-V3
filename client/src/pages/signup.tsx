@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { useAuth as useClerkAuth, useSignUp, useClerk } from "@clerk/clerk-react";
+import { useAuth as useClerkAuth, useSignUp, useClerk, useOrganizationList } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, Eye, EyeOff, Shield, Users, UserCheck, AlertCircle, CheckCircle } from "lucide-react";
+import { Loader2, Eye, EyeOff, Shield, Users, UserCheck, AlertCircle, CheckCircle, Building2 } from "lucide-react";
 import type { UserInvitation } from "@shared/schema";
 
 export default function SignupPage() {
   const { isSignedIn } = useClerkAuth();
   const { signUp, setActive } = useSignUp();
   const clerk = useClerk();
+  const { createOrganization } = useOrganizationList();
   const [, setLocation] = useLocation();
   
   const [firstName, setFirstName] = useState("");
@@ -30,20 +31,24 @@ export default function SignupPage() {
   const [signupStep, setSignupStep] = useState<'form' | 'creating' | 'verifying' | 'complete'>('form');
   const [progressMessage, setProgressMessage] = useState("");
 
-  // Check for invitation token or allow admin signup
+  // Check for invitation token or role from login page
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const inviteToken = urlParams.get('invite');
+    const roleParam = urlParams.get('role');
     
     if (inviteToken) {
       setIsValidatingInvite(true);
       validateInvitation(inviteToken);
+    } else if (roleParam === 'admin') {
+      // Admin signup from login page
+      setIsAdminSignup(true);
     } else {
-      // Check if this is an admin trying to sign up
-      // In a real app, you might have a special admin registration URL
+      // Default to admin for direct access
       setIsAdminSignup(true);
     }
   }, []);
+
 
   const validateInvitation = async (token: string) => {
     try {
@@ -147,32 +152,41 @@ export default function SignupPage() {
         await setActive({ session: result.createdSessionId });
         console.log('✅ Step 2 Complete: Session activated');
         
-        // Set up Pro Trial metadata for new user
-        setProgressMessage("Configuring your Pro Trial...");
-        console.log('🔄 Step 3: Setting up Pro Trial metadata...');
+        // Set up user metadata based on role
+        setProgressMessage("Configuring your account...");
+        console.log('🔄 Step 3: Setting up user metadata...');
         
         try {
-          const trialEndDate = new Date();
-          trialEndDate.setDate(trialEndDate.getDate() + 14); // 14-day trial
+          const userRole = invitation?.role || 'admin';
+          
+          // Only admins get Pro Trial - others get basic access
+          const metadata = userRole === 'admin' ? {
+            role: 'admin',
+            subscriptionPlan: 'pro_trial',
+            trialStartDate: new Date().toISOString(),
+            trialEndDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+            maxProjects: -1, // Unlimited during trial
+            maxStorage: 107374182400 // 100GB
+          } : {
+            role: userRole,
+            subscriptionPlan: 'basic',
+            maxProjects: 0, // Will be set by organization admin
+            maxStorage: 1073741824 // 1GB
+          };
           
           await clerk?.user?.update({
-            publicMetadata: {
-              role: 'admin', // Pro Trial users get admin-level access
-              subscriptionPlan: 'pro_trial',
-              trialStartDate: new Date().toISOString(),
-              trialEndDate: trialEndDate.toISOString(),
-              maxProjects: -1, // Unlimited during trial
-              maxStorage: 107374182400, // 100GB
-              organizationId: 1
-            }
+            publicMetadata: metadata
           });
           
-          console.log('✅ Step 3 Complete: Pro Trial metadata set');
+          console.log(`✅ Step 3 Complete: ${userRole} metadata set`);
         } catch (metadataError) {
-          console.error('⚠️ Error setting trial metadata:', metadataError);
+          console.error('⚠️ Error setting user metadata:', metadataError);
           // Continue anyway - user is created
           console.log('⚠️ Continuing without metadata - webhook will handle this');
         }
+
+        // Account created successfully - organization will be set up later
+        console.log('✅ Account created successfully - user can set up organization after login');
         
         // If we have an invitation, accept it
         if (invitation) {
@@ -200,11 +214,20 @@ export default function SignupPage() {
         
         setSignupStep('complete');
         setProgressMessage("Account created successfully!");
-        console.log('✅ Step 4 Complete: Account created successfully! Redirecting to dashboard...');
+        
+        // Role-based redirect
+        const userRole = invitation?.role || 'admin';
+        console.log(`✅ Step 4 Complete: Account created successfully! User role: ${userRole}`);
         
         // Brief delay to show completion before redirect
         setTimeout(() => {
-          setLocation("/dashboard");
+          if (userRole === 'admin') {
+            console.log('🎯 Redirecting admin to organization setup');
+            setLocation("/organization-setup");
+          } else {
+            console.log(`🎯 Redirecting ${userRole} to invitation waiting page`);
+            setLocation("/waiting-for-invitation");
+          }
         }, 1500);
       } else if (result.status === "missing_requirements") {
         // Handle verification requirements
@@ -253,18 +276,26 @@ export default function SignupPage() {
           } else if (unverifiedFields.length > 0) {
             setError(`The following fields need verification: ${unverifiedFields.join(', ')}`);
           } else {
-            // For admin users, try to proceed anyway
-            if (isAdminSignup) {
+            // Handle based on role
+            const userRole = invitation?.role || 'admin';
+            if (userRole === 'admin') {
               console.log('Admin user - attempting to proceed despite missing requirements');
               try {
                 await setActive({ session: result.createdSessionId });
-                setLocation("/dashboard");
+                setLocation("/organization-setup");
               } catch (activationError) {
                 console.error('Failed to activate session:', activationError);
                 setError("Account created but unable to sign in automatically. Please try logging in manually.");
               }
             } else {
-              setError("Account created but requires additional verification. Please contact support or try logging in.");
+              console.log(`${userRole} user - redirecting to waiting page`);
+              try {
+                await setActive({ session: result.createdSessionId });
+                setLocation("/waiting-for-invitation");
+              } catch (activationError) {
+                console.error('Failed to activate session:', activationError);
+                setError("Account created but requires additional verification. Please contact support or try logging in.");
+              }
             }
           }
         }
@@ -479,6 +510,22 @@ export default function SignupPage() {
                 </div>
               </div>
 
+              {/* Organization setup will be handled after login */}
+              {isAdminSignup && (
+                <div className="pt-4 border-t border-gray-600">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Building2 className="w-5 h-5 text-purple-400" />
+                    <h3 className="text-lg font-semibold text-white">What's Next</h3>
+                  </div>
+                  
+                  <div className="text-xs text-gray-500 bg-purple-900/20 border border-purple-800 rounded p-2">
+                    ✓ Create your account with Pro Trial access<br/>
+                    ✓ Set up your organization after login<br/>
+                    ✓ Add team members and clients to your workspace
+                  </div>
+                </div>
+              )}
+
               {error && (
                 <Alert className="border-red-800 bg-red-900/20">
                   <AlertCircle className="h-4 w-4" />
@@ -501,7 +548,7 @@ export default function SignupPage() {
                 ) : invitation ? (
                   "Accept invitation & Create Account"
                 ) : (
-                  "Start 14-Day Free Trial"
+                  "Create Account & Start Trial"
                 )}
               </Button>
 

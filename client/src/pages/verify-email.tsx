@@ -103,7 +103,7 @@ export default function VerifyEmailPage() {
         
         // Small delay to show success message
         setTimeout(() => {
-          setLocation("/dashboard");
+          setLocation("/organization-setup");
         }, 1500);
       } else {
         setError("Verification incomplete. Please try again.");

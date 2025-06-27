@@ -3,61 +3,234 @@
 > NODE_ENV=development tsx server/index.ts
 
 🔗 SupabaseStorage: Connected to production database
-5:11:01 PM [express] serving on port 3000
-Error creating project: {
-  code: '23502',
-  details: 'Failing row contains (2, FINAL SUCCESS PROJECT, Should work now, 13, 9, null, null, 5000.00, null, null, null, null, null, null, null, 9, 2025-06-25 11:41:15.238+00, 2025-06-25 11:41:15.238+00).',
-  hint: null,
-  message: 'null value in column "status" of relation "projects" violates not-null constraint'
+2:30:10 PM [express] serving on port 3000
+2:30:40 PM [express] GET /api/notifications 304 in 52ms :: []
+2:30:40 PM [express] GET /api/notifications/unread-count 304 in 3ms :: {"count":0}
+2:30:59 PM [express] GET /api/notifications 304 in 0ms :: []
+2:30:59 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
 }
-5:11:15 PM [express] POST /api/projects 500 in 190ms :: {"error":"Failed to create project"}
-Error creating project: {
-  code: '23502',
-  details: 'Failing row contains (3, STATUS FIXED PROJECT, Should work with defaults, 13, 9, null, null, 5000.00, null, null, null, null, null, null, null, 9, 2025-06-25 11:41:36.509+00, 2025-06-25 11:41:36.509+00).',
-  hint: null,
-  message: 'null value in column "status" of relation "projects" violates not-null constraint'
+🎫 Auth middleware - Token length: 781
+2:31:00 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 291ms :: {"user":{"id"…
+2:31:00 PM [express] GET /api/notifications 304 in 1ms :: []
+2:31:00 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
 }
-5:11:36 PM [express] POST /api/projects 500 in 363ms :: {"error":"Failed to create project"}
-5:13:16 PM [express] GET /api/supabase/users/naveends798%40gmail.com 200 in 160ms :: {"user":{"id":8…
-5:13:17 PM [express] GET /api/notifications 200 in 1ms :: []
-5:13:17 PM [express] GET /api/notifications/unread-count 200 in 0ms :: {"count":0}
-5:13:17 PM [express] GET /api/team/invitations 200 in 1ms :: []
-5:13:17 PM [express] GET /api/team/invitations 304 in 0ms :: []
-5:13:17 PM [express] GET /api/activities 200 in 0ms :: []
-5:13:17 PM [express] GET /api/clients 200 in 135ms :: [{"id":13,"name":"FIXED CLIENT TEST","email":"…
-5:13:17 PM [express] GET /api/stats 200 in 135ms :: {"activeProjects":1,"totalClients":4,"monthlyRev…
-Error fetching client: {
-  code: '22P02',
-  details: null,
-  hint: null,
-  message: 'invalid input syntax for type integer: "undefined"'
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:31:00 PM [express] GET /api/clients 304 in 796ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
 }
-5:13:17 PM [express] GET /api/projects 500 in 205ms :: {"error":"Failed to fetch projects"}
-5:13:17 PM [express] GET /api/team/members 200 in 226ms :: [{"id":8,"supabase_id":null,"username":nu…
-5:13:17 PM [express] GET /api/team/members 304 in 76ms :: [{"id":8,"supabase_id":null,"username":nul…
-5:14:22 PM [express] GET /api/onboarding-forms 200 in 9ms :: []
-Error fetching client: {
-  code: '22P02',
-  details: null,
-  hint: null,
-  message: 'invalid input syntax for type integer: "undefined"'
+🎫 Auth middleware - Token length: 781
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
 }
-5:14:23 PM [express] GET /api/projects 500 in 740ms :: {"error":"Failed to fetch projects"}
-Error fetching client: {
-  code: '22P02',
-  details: null,
-  hint: null,
-  message: 'invalid input syntax for type integer: "undefined"'
+🚀 enforcePlanLimits called for projects, orgId: 9, req.organizationId: 9
+🔍 enforcePlanLimits: Getting organization 9
+🔍 SupabaseStorage.getOrganization called with ID: 9
+🔍 Organization query result: {
+  data: {
+    id: 9,
+    clerk_org_id: 'org_2z5DwxHCEcPUlO0g6ZwdnK8tWp3',
+    name: "vicy test new vickyenwsdsadas's Organization",
+    slug: 'vicy-test-new-vickyenwsdsadas-s-organization-1751012282',
+    logo: null,
+    plan: 'pro_trial',
+    trial_ends_at: '2025-07-11T08:18:03.151+00:00',
+    subscription_status: 'active',
+    max_members: -1,
+    max_projects: -1,
+    max_storage: 1073741824,
+    storage_used: 0,
+    created_by: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+    created_at: '2025-06-27T08:18:03.223517+00:00',
+    updated_at: '2025-06-27T08:18:03.223517+00:00'
+  },
+  error: null,
+  id: 9
 }
-5:14:24 PM [express] GET /api/projects 500 in 171ms :: {"error":"Failed to fetch projects"}
-5:14:42 PM [express] POST /api/onboarding-forms 201 in 4ms :: {"ownerId":1,"organizationId":1,"proje…
-5:14:42 PM [express] GET /api/onboarding-forms 304 in 0ms :: []
-5:14:46 PM [express] GET /api/onboarding-forms 304 in 1ms :: []
-5:14:46 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 133ms :: {"user":{"id":8…
-Error fetching client: {
-  code: '22P02',
-  details: null,
-  hint: null,
-  message: 'invalid input syntax for type integer: "undefined"'
+🔍 Returning organization: {
+  id: 9,
+  clerk_org_id: 'org_2z5DwxHCEcPUlO0g6ZwdnK8tWp3',
+  name: "vicy test new vickyenwsdsadas's Organization",
+  slug: 'vicy-test-new-vickyenwsdsadas-s-organization-1751012282',
+  logo: null,
+  plan: 'pro_trial',
+  trial_ends_at: '2025-07-11T08:18:03.151+00:00',
+  subscription_status: 'active',
+  max_members: -1,
+  max_projects: -1,
+  max_storage: 1073741824,
+  storage_used: 0,
+  created_by: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  created_at: '2025-06-27T08:18:03.223517+00:00',
+  updated_at: '2025-06-27T08:18:03.223517+00:00'
 }
-5:14:46 PM [express] GET /api/projects 500 in 210ms :: {"error":"Failed to fetch projects"}
+🔍 enforcePlanLimits: Got organization result: {
+  id: 9,
+  clerk_org_id: 'org_2z5DwxHCEcPUlO0g6ZwdnK8tWp3',
+  name: "vicy test new vickyenwsdsadas's Organization",
+  slug: 'vicy-test-new-vickyenwsdsadas-s-organization-1751012282',
+  logo: null,
+  plan: 'pro_trial',
+  trial_ends_at: '2025-07-11T08:18:03.151+00:00',
+  subscription_status: 'active',
+  max_members: -1,
+  max_projects: -1,
+  max_storage: 1073741824,
+  storage_used: 0,
+  created_by: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  created_at: '2025-06-27T08:18:03.223517+00:00',
+  updated_at: '2025-06-27T08:18:03.223517+00:00'
+}
+2:31:13 PM [express] POST /api/clients 400 in 328ms :: {"error":"Invalid plan configuration"}
+2:31:44 PM [express] GET /api/notifications 304 in 1ms :: []
+2:31:44 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:31:44 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 781
+2:31:44 PM [express] GET /api/team/invitations 304 in 0ms :: []
+2:31:44 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:31:44 PM [express] GET /api/activities 304 in 0ms :: []
+2:31:44 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 165ms :: {"user":{"id"…
+2:31:44 PM [express] GET /api/notifications 304 in 1ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:31:44 PM [express] GET /api/projects 401 in 0ms :: {"error":"Missing or invalid authorization head…
+2:31:44 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+2:31:44 PM [express] GET /api/stats 304 in 178ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:31:44 PM [express] GET /api/team/members 304 in 184ms :: [{"id":46,"supabase_id":null,"username":n…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:31:44 PM [express] GET /api/team/members 304 in 77ms :: [{"id":46,"supabase_id":null,"username":nu…
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:31:44 PM [express] GET /api/clients 304 in 327ms :: []
+2:32:14 PM [express] GET /api/notifications 304 in 3ms :: []
+2:32:14 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}

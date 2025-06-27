@@ -1,0 +1,1178 @@
+
+> funnelhq-360@1.0.0 dev
+> NODE_ENV=development tsx server/index.ts
+
+🔗 SupabaseStorage: Connected to production database
+2:09:26 PM [express] serving on port 3000
+2:10:19 PM [express] GET /api/notifications 304 in 7ms :: []
+2:10:19 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+2:11:06 PM [express] GET /api/notifications 304 in 3ms :: []
+2:11:06 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:11:11 PM [express] GET /api/notifications 304 in 1ms :: []
+2:11:11 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 781
+2:11:11 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 531ms :: {"user":{"id"…
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:11:11 PM [express] GET /api/notifications 304 in 1ms :: []
+2:11:11 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:11:12 PM [express] GET /api/clients 304 in 748ms :: []
+2:11:26 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 140ms :: {"user":{"id"…
+2:11:26 PM [express] GET /api/notifications 304 in 1ms :: []
+2:11:26 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:11:26 PM [express] GET /api/team/invitations 304 in 1ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:11:26 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+2:11:26 PM [express] GET /api/team/invitations 304 in 0ms :: []
+2:11:26 PM [express] GET /api/activities 304 in 0ms :: []
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:11:27 PM [express] GET /api/team/members 304 in 142ms :: [{"id":46,"supabase_id":null,"username":n…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:27 PM [express] GET /api/stats 304 in 225ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:11:27 PM [express] GET /api/team/members 304 in 83ms :: [{"id":46,"supabase_id":null,"username":nu…
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:11:27 PM [express] GET /api/clients 304 in 361ms :: []
+2:11:29 PM [express] GET /api/notifications 304 in 0ms :: []
+2:11:29 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:42 PM [express] POST /api/clients 404 in 185ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:45 PM [express] POST /api/clients 404 in 165ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:46 PM [express] POST /api/clients 404 in 150ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:46 PM [express] POST /api/clients 404 in 153ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:11:58 PM [express] POST /api/clients 404 in 190ms :: {"error":"Organization not found"}
+2:11:59 PM [express] GET /api/notifications 304 in 1ms :: []
+2:11:59 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:12:12 PM [express] POST /api/clients 404 in 208ms :: {"error":"Organization not found"}
+2:12:46 PM [express] GET /api/notifications 304 in 14ms :: []
+2:12:46 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:13:02 PM [express] GET /api/notifications 304 in 2ms :: []
+2:13:02 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:13:57 PM [express] GET /api/notifications 304 in 2ms :: []
+2:13:57 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:16:37 PM [express] GET /api/notifications 304 in 1ms :: []
+2:16:37 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:16:40 PM [express] GET /api/notifications 304 in 0ms :: []
+2:16:40 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+2:16:40 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 224ms :: {"user":{"id"…
+2:16:40 PM [express] GET /api/notifications 304 in 1ms :: []
+2:16:40 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:16:41 PM [express] GET /api/clients 304 in 798ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:16:57 PM [express] POST /api/clients 404 in 196ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:01 PM [express] POST /api/clients 404 in 174ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:01 PM [express] POST /api/clients 404 in 177ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:01 PM [express] POST /api/clients 404 in 183ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:02 PM [express] POST /api/clients 404 in 161ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:02 PM [express] POST /api/clients 404 in 147ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:02 PM [express] POST /api/clients 404 in 154ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:03 PM [express] POST /api/clients 404 in 154ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:03 PM [express] POST /api/clients 404 in 148ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:04 PM [express] POST /api/clients 404 in 282ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:04 PM [express] POST /api/clients 404 in 145ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:17:04 PM [express] POST /api/clients 404 in 150ms :: {"error":"Organization not found"}
+2:17:10 PM [express] GET /api/notifications 304 in 2ms :: []
+2:17:10 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:17:40 PM [express] GET /api/notifications 304 in 1ms :: []
+2:17:40 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:18:10 PM [express] GET /api/notifications 304 in 2ms :: []
+2:18:10 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:18:40 PM [express] GET /api/notifications 304 in 5ms :: []
+2:18:40 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:19:10 PM [express] GET /api/notifications 304 in 2ms :: []
+2:19:10 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:19:40 PM [express] GET /api/notifications 304 in 2ms :: []
+2:19:40 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:19:54 PM [express] GET /api/notifications 304 in 1ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:19:54 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+2:19:54 PM [express] GET /api/team/invitations 200 in 1ms :: []
+2:19:54 PM [express] GET /api/activities 200 in 0ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 782
+2:19:54 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:19:54 PM [express] GET /api/team/invitations 304 in 0ms :: []
+✅ Auth middleware - Token verified: { userId: 'user_2yzK0Mr9692nqbrVruKxLLjBsqC' }
+2:19:54 PM [express] GET /api/supabase/users/naveends798%40gmail.com 304 in 138ms :: {"user":{"id":8…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:19:54 PM [express] GET /api/team/members 200 in 133ms :: [{"id":46,"supabase_id":null,"username":n…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:19:54 PM [express] GET /api/projects 401 in 1ms :: {"error":"Missing or invalid authorization head…
+2:19:54 PM [express] GET /api/notifications 304 in 1ms :: []
+2:19:54 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2yzK0Mr9692nqbrVruKxLLjBsqC',
+  role: 'admin',
+  orgId: '1',
+  orgName: 'Naveen Organization',
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+2:19:54 PM [express] GET /api/stats 200 in 202ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:19:54 PM [express] GET /api/team/members 304 in 83ms :: [{"id":46,"supabase_id":null,"username":nu…
+Transformed clients for organization 1: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+API returning clients for organization 1: [
+  {
+    "id": 21,
+    "name": "test ",
+    "email": "testclinet@gmail.com",
+    "avatar": null,
+    "notes": "dsaasdsa",
+    "created_by": 8,
+    "organization_id": 1,
+    "joined_at": "2025-06-26T08:42:51.02+00:00",
+    "joinedAt": "2025-06-26T08:42:51.02+00:00",
+    "createdBy": 8,
+    "organizationId": 1
+  },
+  {
+    "id": 20,
+    "name": "Test clinet 1",
+    "email": "naveen@funnelgrowthexpert.com",
+    "avatar": "/uploads/avatars/avatar-1750912754780-142298674.png",
+    "notes": "Thsi is a test clinet",
+    "created_by": 8,
+    "organization_id": 1,
+    "joined_at": "2025-06-26T04:39:14.611+00:00",
+    "joinedAt": "2025-06-26T04:39:14.611+00:00",
+    "createdBy": 8,
+    "organizationId": 1
+  },
+  {
+    "id": 13,
+    "name": "FIXED CLIENT TEST",
+    "email": "fixed@test.com",
+    "avatar": null,
+    "notes": "Should work now with snake_case",
+    "created_by": 8,
+    "organization_id": 1,
+    "joined_at": "2025-06-25T11:38:37.413+00:00",
+    "joinedAt": "2025-06-25T11:38:37.413+00:00",
+    "createdBy": 8,
+    "organizationId": 1
+  }
+]
+2:19:54 PM [express] GET /api/clients 200 in 354ms :: [{"id":21,"name":"test ","email":"testclinet@g…
+2:20:15 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 200 in 150ms :: {"user":{"id"…
+2:20:16 PM [express] GET /api/notifications 200 in 1ms :: []
+2:20:16 PM [express] GET /api/notifications/unread-count 200 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'missing',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+❌ Auth middleware - Missing or invalid auth header
+2:20:16 PM [express] GET /api/projects 401 in 0ms :: {"error":"Missing or invalid authorization head…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+2:20:16 PM [express] GET /api/team/invitations 304 in 0ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+2:20:16 PM [express] GET /api/team/invitations 304 in 1ms :: []
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:20:16 PM [express] GET /api/activities 304 in 1ms :: []
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:20:16 PM [express] GET /api/team/members 304 in 117ms :: [{"id":46,"supabase_id":null,"username":n…
+🔄 Fetching team members for organization: 1
+🔄 SupabaseStorage.getTeamMembers: organizationId=1
+Transformed clients for organization undefined: [
+  {
+    id: 21,
+    name: 'test ',
+    organizationId: 1,
+    joinedAt: '2025-06-26T08:42:51.02+00:00'
+  },
+  {
+    id: 20,
+    name: 'Test clinet 1',
+    organizationId: 1,
+    joinedAt: '2025-06-26T04:39:14.611+00:00'
+  },
+  {
+    id: 13,
+    name: 'FIXED CLIENT TEST',
+    organizationId: 1,
+    joinedAt: '2025-06-25T11:38:37.413+00:00'
+  }
+]
+2:20:16 PM [express] GET /api/stats 304 in 147ms :: {"activeProjects":1,"totalClients":3,"monthlyRev…
+📋 User 46 (crashdeals101@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 34 (complete.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 33 (test@gmail.com): is_active=true, subscription_status=none, derived status = 'active'
+📋 User 27 (debug.role@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 26 (test.editing@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 25 (brand.new.user@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 24 (freelancer@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 23 (unique.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 20 (restart.test@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 19 (vicy.7981@gmail.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 18 (david.wilson@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 17 (emma.davis@example.com): is_active=false, subscription_status=suspended, derived status = 'suspended'
+📋 User 16 (alex.smith@example.com): is_active=true, subscription_status=active, derived status = 'active'
+📋 User 15 (newuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 9 (testuser@example.com): is_active=false, subscription_status=active, derived status = 'inactive'
+📋 User 8 (naveends798@gmail.com): is_active=true, subscription_status=active, derived status = 'active'
+✅ Found 16 team members for organization 1
+✅ Returning 16 team members: [
+  '46:crashdeals101@gmail.com:active',
+  '34:complete.test@example.com:active',
+  '33:test@gmail.com:active',
+  '27:debug.role@example.com:active',
+  '26:test.editing@example.com:active',
+  '25:brand.new.user@example.com:inactive',
+  '24:freelancer@example.com:suspended',
+  '23:unique.test@example.com:active',
+  '20:restart.test@example.com:active',
+  '19:vicy.7981@gmail.com:inactive',
+  '18:david.wilson@example.com:active',
+  '17:emma.davis@example.com:suspended',
+  '16:alex.smith@example.com:active',
+  '15:newuser@example.com:inactive',
+  '9:testuser@example.com:inactive',
+  '8:naveends798@gmail.com:active'
+]
+2:20:16 PM [express] GET /api/team/members 304 in 77ms :: [{"id":46,"supabase_id":null,"username":nu…
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:20:17 PM [express] GET /api/clients 200 in 383ms :: []
+2:20:21 PM [express] GET /api/notifications 304 in 2ms :: []
+2:20:21 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:20:37 PM [express] POST /api/clients 404 in 244ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:20:41 PM [express] POST /api/clients 404 in 236ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:20:42 PM [express] POST /api/clients 404 in 156ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:20:43 PM [express] POST /api/clients 404 in 181ms :: {"error":"Organization not found"}
+2:20:51 PM [express] GET /api/notifications 304 in 4ms :: []
+2:20:51 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:21:21 PM [express] GET /api/notifications 304 in 2ms :: []
+2:21:21 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:21:53 PM [express] GET /api/notifications 304 in 2ms :: []
+2:21:53 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:24:17 PM [express] GET /api/notifications 304 in 1ms :: []
+2:24:17 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:24:22 PM [express] GET /api/notifications 304 in 2ms :: []
+2:24:22 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:24:56 PM [express] GET /api/notifications 304 in 0ms :: []
+2:24:56 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:25:21 PM [express] GET /api/notifications 304 in 1ms :: []
+2:25:21 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+2:26:08 PM [express] GET /api/notifications 304 in 1ms :: []
+2:26:08 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:26:11 PM [express] GET /api/notifications 304 in 0ms :: []
+2:26:11 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+2:26:12 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 147ms :: {"user":{"id"…
+2:26:12 PM [express] GET /api/notifications 304 in 0ms :: []
+2:26:12 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:26:12 PM [express] GET /api/clients 304 in 831ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:26:28 PM [express] POST /api/clients 404 in 675ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:26:31 PM [express] POST /api/clients 404 in 161ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:26:31 PM [express] POST /api/clients 404 in 161ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:26:31 PM [express] POST /api/clients 404 in 153ms :: {"error":"Organization not found"}
+2:26:42 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+2:26:42 PM [express] GET /api/notifications 304 in 0ms :: []
+2:26:59 PM [express] GET /api/notifications 304 in 0ms :: []
+2:26:59 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:26:59 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 106ms :: {"user":{"id"…
+2:26:59 PM [express] GET /api/notifications 304 in 2ms :: []
+2:26:59 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:27:00 PM [express] GET /api/clients 304 in 273ms :: []
+2:27:04 PM [express] GET /api/notifications 200 in 4ms :: []
+2:27:04 PM [express] GET /api/notifications/unread-count 200 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:27:04 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 200 in 149ms :: {"user":{"id"…
+2:27:04 PM [express] GET /api/notifications 200 in 1ms :: []
+2:27:04 PM [express] GET /api/notifications/unread-count 200 in 4ms :: {"count":0}
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:27:04 PM [express] GET /api/clients 200 in 383ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:27:18 PM [express] POST /api/clients 404 in 168ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:27:28 PM [express] POST /api/clients 404 in 177ms :: {"error":"Organization not found"}
+2:27:34 PM [express] GET /api/notifications 304 in 1ms :: []
+2:27:34 PM [express] GET /api/notifications/unread-count 304 in 0ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:27:36 PM [express] POST /api/clients 404 in 269ms :: {"error":"Organization not found"}
+2:28:04 PM [express] GET /api/notifications 304 in 3ms :: []
+2:28:04 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+2:28:34 PM [express] GET /api/notifications 304 in 2ms :: []
+2:28:34 PM [express] GET /api/notifications/unread-count 304 in 3ms :: {"count":0}
+2:29:04 PM [express] GET /api/notifications 304 in 9ms :: []
+2:29:04 PM [express] GET /api/notifications/unread-count 304 in 9ms :: {"count":0}
+2:29:09 PM [express] GET /api/notifications 304 in 1ms :: []
+2:29:09 PM [express] GET /api/notifications/unread-count 304 in 1ms :: {"count":0}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+2:29:09 PM [express] GET /api/supabase/users/crashdeals101%40gmail.com 304 in 135ms :: {"user":{"id"…
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:09 PM [express] GET /api/notifications 304 in 2ms :: []
+2:29:10 PM [express] GET /api/notifications/unread-count 304 in 2ms :: {"count":0}
+Transformed clients for organization 9: []
+API returning clients for organization 9: []
+2:29:10 PM [express] GET /api/clients 304 in 330ms :: []
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:22 PM [express] POST /api/clients 404 in 272ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:26 PM [express] POST /api/clients 404 in 316ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:30 PM [express] POST /api/clients 404 in 161ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:30 PM [express] POST /api/clients 404 in 162ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:30 PM [express] POST /api/clients 404 in 166ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:30 PM [express] POST /api/clients 404 in 151ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:31 PM [express] POST /api/clients 404 in 154ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:31 PM [express] POST /api/clients 404 in 151ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:31 PM [express] POST /api/clients 404 in 166ms :: {"error":"Organization not found"}
+🔐 Auth middleware - Headers: {
+  authorization: 'Bearer eyJhbGciOiJSU...',
+  userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap'
+}
+🎫 Auth middleware - Token length: 780
+✅ Auth middleware - Token verified: { userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs' }
+👤 Auth middleware - User authenticated: {
+  userId: 'user_2z5Dw6DHKyokamlX9PJ4AftAHPs',
+  role: 'admin',
+  orgId: '9',
+  orgName: "vicy test new vickyenwsdsadas's Organization",
+  orgPlan: 'pro_trial'
+}
+2:29:31 PM [express] POST /api/clients 404 in 154ms :: {"error":"Organization not found"}
+2:29:40 PM [express] GET /api/notifications/unread-count 304 in 24ms :: {"count":0}
+2:29:40 PM [express] GET /api/notifications 304 in 1ms :: []

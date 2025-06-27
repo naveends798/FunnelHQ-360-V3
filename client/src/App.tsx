@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
+import { useOrganization } from "@/hooks/useOrganization";
 import { SupabaseProvider } from "@/contexts/supabase-context";
 import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, useAuth as useClerkAuth } from "@clerk/clerk-react";
 import { setAuthTokenGetter } from "./lib/queryClient";
@@ -38,6 +39,14 @@ import ClientDashboard from "@/pages/client-dashboard";
 import ClientsPage from "@/pages/clients";
 import NotFound from "@/pages/not-found";
 import MobileOptimizations from "@/components/mobile-optimizations";
+import OrganizationOnboarding from "@/components/organization-onboarding";
+import SimpleOnboarding from "@/components/simple-onboarding";
+import RobustOrganizationOnboarding from "@/components/robust-organization-onboarding";
+import ForceOnboarding from "@/components/force-onboarding";
+import TestOrgCreation from "@/pages/test-org-creation";
+import OrganizationSetupPage from "@/pages/organization-setup";
+import TestSignupFlow from "@/pages/test-signup-flow";
+import WaitingForInvitationPage from "@/pages/waiting-for-invitation";
 import { useLocation } from "wouter";
 import { PERMISSIONS } from "@/lib/permissions";
 
@@ -69,17 +78,25 @@ function ProtectedRoute({ children, requiresPermission }: { children: React.Reac
 
 function RoleBasedRouter() {
   const { currentRole, isClient, loading } = useAuth();
+  const { organization, organizationList, isLoaded: orgLoaded } = useOrganization();
   const [location] = useLocation();
   
-  console.log("🏠 Role-based redirect for:", currentRole, "loading:", loading);
+  console.log("🏠 Role-based redirect for:", currentRole, "loading:", loading, "orgLoaded:", orgLoaded);
+  console.log("🔍 Organization debug:", {
+    organization: organization?.name || 'none',
+    organizationList: organizationList?.map(org => org.organization.name) || [],
+    organizationListLength: organizationList?.length || 0
+  });
   
-  // Show loading while determining role
-  if (loading) {
+  // Show loading while determining role and organization
+  if (loading || !orgLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
-          <p className="text-gray-400">Determining access level...</p>
+          <p className="text-gray-400">
+            {loading ? "Determining access level..." : "Loading organization..."}
+          </p>
         </div>
       </div>
     );
@@ -92,6 +109,34 @@ function RoleBasedRouter() {
   if (hasInvitation && !loading) {
     // Redirect to login with invitation context
     return <LoginPage />;
+  }
+
+  // Check if user has no organizations (but don't auto-redirect from here)
+  const hasNoOrganizations = orgLoaded && (
+    !organizationList || 
+    organizationList.length === 0 || 
+    (!organization && organizationList.every(org => !org.organization))
+  );
+  
+  // If user has no organizations and tries to access dashboard directly, 
+  // show a message to set up organization first
+  if (hasNoOrganizations && location.includes('/dashboard')) {
+    console.log("🏢 User accessing dashboard without organization - redirecting to setup");
+    window.location.href = '/organization-setup';
+    return null;
+  }
+
+  // Wait for organization to be set
+  if (orgLoaded && organizationList && organizationList.length > 0 && !organization) {
+    console.log("⏳ Waiting for organization to be set active...");
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Setting up your workspace...</p>
+        </div>
+      </div>
+    );
   }
   
   // Route based on role with fallback
@@ -155,6 +200,7 @@ function Router() {
             <RoleBasedRouter />
           </SignedIn>
         </Route>
+        <Route path="/test-signup-flow" component={TestSignupFlow} />
         <Route path="/verify-email">
           <SignedOut>
             <VerifyEmailPage />
@@ -288,6 +334,22 @@ function Router() {
         <Route path="/">
           <ClerkProtectedRoute>
             <RoleBasedRouter />
+          </ClerkProtectedRoute>
+        </Route>
+        <Route path="/test-onboarding" component={ForceOnboarding} />
+        <Route path="/test-org-creation">
+          <ClerkProtectedRoute>
+            <TestOrgCreation />
+          </ClerkProtectedRoute>
+        </Route>
+        <Route path="/organization-setup">
+          <ClerkProtectedRoute>
+            <OrganizationSetupPage />
+          </ClerkProtectedRoute>
+        </Route>
+        <Route path="/waiting-for-invitation">
+          <ClerkProtectedRoute>
+            <WaitingForInvitationPage />
           </ClerkProtectedRoute>
         </Route>
         <Route component={NotFound} />
