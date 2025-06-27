@@ -93,6 +93,10 @@ export const createOrUpdateOrganization = async (req: Request, res: Response) =>
           logo: orgData.logo,
           plan: orgData.plan || 'pro_trial',
           trial_ends_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days
+          max_members: -1, // unlimited for pro_trial
+          max_projects: -1, // unlimited for pro_trial  
+          max_storage: 1073741824, // 1GB in bytes (within integer range)
+          storage_used: 0,
           created_by: orgData.createdBy,
         }])
         .select()
